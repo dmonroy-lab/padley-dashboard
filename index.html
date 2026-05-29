@@ -327,7 +327,7 @@ body.light .summary-label{color:#6b7280}
     <button class="tab active" onclick="showTab('fernando',this)">🏠 Fernando (6)</button>
     <button class="tab" onclick="showTab('jeny',this)">🏠 Jeny (12)</button>
     <button class="tab" onclick="showTab('kathleen',this)">🏠 Kathleen (4)</button>
-    <button class="tab" onclick="showTab('oriana',this)">🏠 Oriana (15)</button>
+    <button class="tab" onclick="showTab('oriana',this)">🏠 Oriana (12)</button>
     <button class="tab" onclick="showTab('ranking',this)">🏆 Top 10 &amp; Worst 10</button>
     <button class="tab" onclick="showTab('charts',this)">📊 Charts</button>
     <button class="tab" onclick="showTab('analytics',this)">📈 Company Analytics</button>
@@ -395,9 +395,7 @@ const COMPS={
   oriana_9:[{id:"1688702135387855",price:1250,desc:"2 bed · Rosemont/Plateau"},{id:"1160973075994483",price:1200,desc:"2 bed · Rosemont active"},{id:"1291614286455577",price:1290,desc:"2 bed · Rosemont/Plateau"},{id:"1854213255211491",price:1380,desc:"2 bed · Rosemont area"},{id:"4278943729011607",price:1310,desc:"2 bed · Plateau area"}],
   oriana_10:[{id:"1452688199426121",price:1099,desc:"Studio · 418 Rue Abélard H3E"},{id:"3999869056977377",price:995,desc:"Studio · Westmount"},{id:"974660114979213",price:1090,desc:"Studio · 770 Av. Ste-Croix H4L"},{id:"4367525826856123",price:1050,desc:"Studio · Montreal"},{id:"1293324249600338",price:999,desc:"Studio · 2380 Ste-Catherine E"}],
   oriana_11:[{id:"2201098553996255",price:995,desc:"Studio · Plateau/Rosemont"},{id:"1531464958406932",price:1020,desc:"Studio · Plateau Rosemont"},{id:"1665333491792470",price:959,desc:"Studio · Rue Durocher H2X"},{id:"1741941400108295",price:961,desc:"Studio · Jeanne-Mance H2X"},{id:"1265233062266323",price:1038,desc:"Studio · Plateau area"}],
-  oriana_12:[{id:"1704514630721992",price:1595,desc:"2 bed · West Island"},{id:"912789751805456",price:1550,desc:"2 bed · Montréal Balcon"},{id:"958294243507851",price:1350,desc:"2 bed · Montréal area"},{id:"969217752474612",price:1291,desc:"2 bed · Montréal in-unit laundry"},{id:"1993388097964323",price:1295,desc:"2 bed · West Island area"}],
-  oriana_13:[{id:"1688702135387855",price:1250,desc:"2 bed · CDN/Rosemont active"},{id:"1160973075994483",price:1200,desc:"2 bed · CDN area"},{id:"1291614286455577",price:1290,desc:"2 bed · CDN/Plateau"},{id:"1023611340092061",price:1480,desc:"2 bed · Montréal"},{id:"4278943729011607",price:1310,desc:"2 bed · CDN area"}],
-  oriana_14:[{id:"2266823757456691",price:1299,desc:"1 bed · CSL H4W"},{id:"791183063932522",price:1090,desc:"1 bed · 2238 Rue Souvenir H3H"},{id:"1343093990969442",price:1275,desc:"1 bed · 5460 Av. Bessborough H4V"},{id:"1380254440789455",price:1125,desc:"1 bed · Saint-Antoine O"},{id:"983613407488744",price:1350,desc:"1 bed · Montreal area"}]
+  oriana_12:[{id:"2201098553996255",price:995,desc:"Studio · Plateau/Rosemont"},{id:"1531464958406932",price:1020,desc:"Studio · Plateau Rosemont"},{id:"1665333491792470",price:959,desc:"Studio · Rue Durocher H2X"},{id:"1741941400108295",price:961,desc:"Studio · Jeanne-Mance H2X"},{id:"1265233062266323",price:1038,desc:"Studio · Plateau area"}]
 };;
 
 // PRICE RULES (surgical precision):
@@ -602,10 +600,7 @@ const ORIANA=[
   {id:"2079978426731789",price:950,beds:0,title:"Studio - Rue Masson H1X",loc:"3915 Rue Masson, Montréal H1X 1T2",zone:"rosemont_0",pets:true,desc_ok:true,photos:7,link:"https://www.facebook.com/marketplace/item/2079978426731789/"},
   {id:"1302683928048846",price:1275,beds:2,title:"2 Beds - Rue St-Hubert H2R",loc:"7879 Rue St-Hubert, Montréal H2R 2P1",zone:"rosemont_2",pets:true,desc_ok:true,photos:12,link:"https://www.facebook.com/marketplace/item/1302683928048846/"},
   {id:"1673049153835500",price:925,beds:0,title:"Studio - Av. Wilderton H3S",loc:"6510 Av. Wilderton, Montréal H3S 2L6",zone:"cdn_0",pets:true,desc_ok:true,photos:8,link:"https://www.facebook.com/marketplace/item/1673049153835500/"},
-  {id:"1556778945871466",price:1075,beds:0,title:"Studio - Rue St-Denis H2J",loc:"5576 Rue St-Denis, Montréal H2J 2M5",zone:"plateau_0",pets:true,desc_ok:true,photos:8,link:"https://www.facebook.com/marketplace/item/1556778945871466/"},
-  {id:"1522547916326097",price:1500,beds:2,title:"2 Beds - Rue Roy H9E NEW",loc:"25 Rue Roy, Montréal H9E 1G2",zone:"kirkland_2",pets:false,desc_ok:true,photos:8,link:"https://www.facebook.com/marketplace/item/1522547916326097/"},
-  {id:"1626121255129792",price:1267,beds:2,title:"2 Beds - Av. Barclay H3S NEW",loc:"2840 Av. Barclay, Montréal H3S 1J6",zone:"cdn_2",pets:true,desc_ok:true,photos:10,link:"https://www.facebook.com/marketplace/item/1626121255129792/"},
-  {id:"1294546006215160",price:1495,beds:1,title:"1 Bed - Montréal NEW",loc:"Montréal, QC (location approx)",zone:"montreal_1",pets:false,desc_ok:true,photos:15,link:"https://www.facebook.com/marketplace/item/1294546006215160/"}
+  {id:"1556778945871466",price:1075,beds:0,title:"Studio - Rue St-Denis H2J",loc:"5576 Rue St-Denis, Montréal H2J 2M5",zone:"plateau_0",pets:true,desc_ok:true,photos:8,link:"https://www.facebook.com/marketplace/item/1556778945871466/"}
 ];
 const ALL_DATA=[...FERNANDO.map(i=>({...i,agent:"Fernando",agentColor:"#6366f1",agent_key:"fernando"})),...JENY.map(i=>({...i,agent:"Jeny",agentColor:"#10b981",agent_key:"jeny"})),...KATHLEEN.map(i=>({...i,agent:"Kathleen",agentColor:"#f59e0b",agent_key:"kathleen"})),...ORIANA.map(i=>({...i,agent:"Oriana",agentColor:"#ec4899",agent_key:"oriana"}))];
 
