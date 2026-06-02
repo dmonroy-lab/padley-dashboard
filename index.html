@@ -158,6 +158,25 @@ body{font-family:'DM Sans',sans-serif;background:#0a0a14;color:#e8eaf0;min-heigh
 .chart-card{background:#13131f;border:1px solid rgba(255,255,255,0.1);border-radius:13px;padding:18px;margin-bottom:16px}
 .chart-card h3{font-family:'Syne',sans-serif;font-size:11px;font-weight:600;color:#9ca3af;margin-bottom:14px;text-transform:uppercase;letter-spacing:.05em}
 .chart-wrap{position:relative;height:240px}
+.city-bar{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding:10px 16px;background:#13131f;border:1px solid rgba(255,255,255,0.08);border-radius:12px}
+.city-label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:#6b7280;font-weight:600;white-space:nowrap}
+.city-btns{display:flex;gap:8px;flex-wrap:wrap}
+.city-btn{display:flex;align-items:center;gap:7px;padding:8px 16px;border-radius:10px;border:1.5px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);color:#9ca3af;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s;position:relative}
+.city-btn:hover:not(.active){background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.18);color:#e2e8f0}
+.city-btn.active{background:linear-gradient(135deg,#1a4fa8,#2563eb);border-color:transparent;color:#fff;font-weight:600;box-shadow:0 2px 12px rgba(37,99,235,0.3)}
+.city-flag{font-size:16px}
+.city-count{font-size:10px;background:rgba(255,255,255,0.15);padding:2px 7px;border-radius:20px;font-weight:600}
+.city-btn.active .city-count{background:rgba(255,255,255,0.25)}
+.city-soon{background:rgba(245,158,11,0.2)!important;color:#fcd34d!important}
+.city-empty{text-align:center;padding:60px 20px;background:#13131f;border:1px dashed rgba(255,255,255,0.1);border-radius:14px;margin:10px 0}
+.city-empty-icon{font-size:48px;margin-bottom:14px}
+.city-empty-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:#e2e8f0;margin-bottom:8px}
+.city-empty-sub{font-size:13px;color:#6b7280;max-width:400px;margin:0 auto}
+body.light .city-bar{background:#ffffff;border-color:#d1dce8}
+body.light .city-btn{border-color:#cbd5e1;background:#f8fafc;color:#475569}
+body.light .city-btn.active{background:linear-gradient(135deg,#00154F,#003080);color:#fff}
+body.light .city-empty{background:#ffffff;border-color:#d1dce8}
+body.light .city-empty-title{color:#0a1628}
 .credit-footer{text-align:center;padding:20px 0;font-size:11px;color:#7a8494;border-top:1px solid rgba(255,255,255,0.08);margin-top:28px}
 .credit-footer span{color:#4D9FFF;font-weight:600}
 @media(max-width:900px){.kpi-row{grid-template-columns:repeat(2,1fr)}.mkt-grid{grid-template-columns:repeat(2,1fr)}.comp-grid{grid-template-columns:repeat(2,1fr)}.wrap{padding:14px}.topbar{padding:11px 14px}.sum-right{flex-wrap:wrap}}
@@ -323,7 +342,23 @@ body.light .summary-label{color:#6b7280}
       <div class="mkt-cell"><div class="mkt-type">3 Bedrooms</div><div class="mkt-avg">CA$1,720</div><div class="mkt-range">$1,480–$2,000 · Sweet $1,600–$1,950</div><div class="mkt-n">8 listings today</div></div>
     </div>
   </div>
-  <div class="tabs">
+  <!-- CITY SELECTOR -->
+  <div class="city-bar" id="city-bar">
+    <div class="city-label">🌎 City</div>
+    <div class="city-btns">
+      <button class="city-btn active" onclick="switchCity('montreal',this)">
+        <span class="city-flag">🇨🇦</span> Montréal
+        <span class="city-count">34 listings</span>
+      </button>
+      <button class="city-btn" onclick="switchCity('edmonton',this)">
+        <span class="city-flag">🇨🇦</span> Edmonton
+        <span class="city-count city-soon">Coming soon</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- MONTREAL TABS -->
+  <div class="tabs" id="tabs-montreal">
     <button class="tab active" onclick="showTab('fernando',this)">🏠 Fernando (6)</button>
     <button class="tab" onclick="showTab('jeny',this)">🏠 Jeny (12)</button>
     <button class="tab" onclick="showTab('kathleen',this)">🏠 Kathleen (4)</button>
@@ -331,6 +366,15 @@ body.light .summary-label{color:#6b7280}
     <button class="tab" onclick="showTab('ranking',this)">🏆 Top 10 &amp; Worst 10</button>
     <button class="tab" onclick="showTab('charts',this)">📊 Charts</button>
     <button class="tab" onclick="showTab('analytics',this)">📈 Company Analytics</button>
+  </div>
+
+  <!-- EDMONTON PLACEHOLDER -->
+  <div id="tabs-edmonton" style="display:none">
+    <div class="city-empty">
+      <div class="city-empty-icon">🏗️</div>
+      <div class="city-empty-title">Edmonton — Coming Soon</div>
+      <div class="city-empty-sub">No agents or listings configured for this city yet. Contact David Monroy to add agents.</div>
+    </div>
   </div>
   <div id="pane-fernando" class="pane active"></div>
   <div id="pane-jeny" class="pane"></div>
@@ -646,6 +690,28 @@ function renderAll(){
   renderAgent("oriana",ORIANA,"Oriana Samboni","OS","#ec4899","~4.9","73","13","2021","https://www.facebook.com/marketplace/profile/100065415266053/","oriana");
   renderRanking();
   if(chartsBuilt)renderCharts();
+}
+function switchCity(city, el) {
+  // Update city button styles
+  document.querySelectorAll(".city-btn").forEach(b => b.classList.remove("active"));
+  el.classList.add("active");
+  // Show/hide city content
+  const cities = ["montreal", "edmonton"];
+  cities.forEach(c => {
+    const tabs = document.getElementById("tabs-" + c);
+    if (tabs) tabs.style.display = c === city ? "" : "none";
+  });
+  // Also hide all panes if switching away from montreal
+  if (city !== "montreal") {
+    document.querySelectorAll(".pane").forEach(p => p.classList.remove("active"));
+  } else {
+    // Re-activate the first montreal tab if none active
+    const activePanes = [...document.querySelectorAll(".pane.active")];
+    if (activePanes.length === 0) {
+      const firstTab = document.querySelector("#tabs-montreal .tab");
+      if (firstTab) firstTab.click();
+    }
+  }
 }
 function showTab(name,el){
   document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
