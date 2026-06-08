@@ -327,7 +327,7 @@ body.light .summary-label{color:#6b7280}
       <button class="lang-btn" onclick="setLang('fr',this)">🇫🇷 FR</button>
       <button class="lang-btn" onclick="setLang('es',this)">🇪🇸 ES</button>
     </div>
-    <div class="badge green">🟢 Live · June 1, 2026</div>
+    <div class="badge green">🟢 Live · June 8, 2026</div>
     <div class="badge gold">⚡ David Monroy</div>
   </div>
 </div>
@@ -359,9 +359,9 @@ body.light .summary-label{color:#6b7280}
 
   <!-- MONTREAL TABS -->
   <div class="tabs" id="tabs-montreal">
-    <button class="tab active" onclick="showTab('fernando',this)">🏠 Fernando (6)</button>
-    <button class="tab" onclick="showTab('jeny',this)">🏠 Jeny (12)</button>
-    <button class="tab" onclick="showTab('kathleen',this)">🏠 Kathleen (4)</button>
+    <button class="tab active" onclick="showTab('fernando',this)">🏠 Fernando (5)</button>
+    <button class="tab" onclick="showTab('jeny',this)">🏠 Jeny (9)</button>
+    <button class="tab" onclick="showTab('kathleen',this)">🏠 Kathleen (5)</button>
     <button class="tab" onclick="showTab('oriana',this)">🏠 Oriana (12)</button>
     <button class="tab" onclick="showTab('ranking',this)">🏆 Top 10 &amp; Worst 10</button>
     <button class="tab" onclick="showTab('charts',this)">📊 Charts</button>
@@ -396,7 +396,7 @@ function t(k){return T[LANG][k]||T.en[k]||k;}
 function setLang(lang,btn){LANG=lang;document.querySelectorAll(".lang-btn").forEach(b=>b.classList.remove("active"));btn.classList.add("active");document.querySelectorAll("[data-i18n]").forEach(el=>el.innerHTML=t(el.dataset.i18n));renderAll();}
 
 const MKT={0:{avg:975,min:860,max:1195,slo:900,shi:1075,n:14},1:{avg:1095,min:895,max:1295,slo:995,shi:1195,n:18},2:{avg:1370,min:1150,max:1700,slo:1280,shi:1525,n:22},3:{avg:1720,min:1480,max:2000,slo:1600,shi:1950,n:8}};
-const MKT_Z={kirkland_2:{avg:1520,min:1350,max:1750,slo:1400,shi:1650,n:6},cdn_2:{avg:1450,min:1250,max:1700,slo:1350,shi:1600,n:8},montreal_1:{avg:1250,min:1050,max:1500,slo:1150,shi:1400,n:12},longueuil_2:{avg:1390,min:1195,max:1600,slo:1300,shi:1525,n:8},verdun_2:{avg:1420,min:1200,max:1700,slo:1300,shi:1600,n:7},pointe_0:{avg:1000,min:875,max:1150,slo:880,shi:1050,n:4},anjou_1:{avg:1050,min:895,max:1290,slo:950,shi:1150,n:6},plateau_0:{avg:960,min:857,max:1195,slo:900,shi:1075,n:10},plateau_2:{avg:1490,min:1350,max:1700,slo:1400,shi:1625,n:8},granby_2:{avg:1196,min:1150,max:1260,slo:1150,shi:1250,n:5},hochelaga_0:{avg:960,min:850,max:1200,slo:890,shi:1050,n:8}};
+const MKT_Z={outremont_1:{avg:1195,min:920,max:1595,slo:1050,shi:1350,n:8},outremont_2:{avg:1390,min:1050,max:1700,slo:1200,shi:1550,n:6},cdn_1:{avg:1150,min:950,max:1400,slo:1050,shi:1300,n:8},cdn_plamondon_2:{avg:1400,min:1200,max:1700,slo:1250,shi:1550,n:7},kirkland_2:{avg:1520,min:1350,max:1750,slo:1400,shi:1650,n:6},cdn_2:{avg:1450,min:1250,max:1700,slo:1350,shi:1600,n:8},montreal_1:{avg:1250,min:1050,max:1500,slo:1150,shi:1400,n:12},longueuil_2:{avg:1390,min:1195,max:1600,slo:1300,shi:1525,n:8},verdun_2:{avg:1420,min:1200,max:1700,slo:1300,shi:1600,n:7},pointe_0:{avg:1000,min:875,max:1150,slo:880,shi:1050,n:4},anjou_1:{avg:1050,min:895,max:1290,slo:950,shi:1150,n:6},plateau_0:{avg:960,min:857,max:1195,slo:900,shi:1075,n:10},plateau_2:{avg:1490,min:1350,max:1700,slo:1400,shi:1625,n:8},granby_2:{avg:1196,min:1150,max:1260,slo:1150,shi:1250,n:5},hochelaga_0:{avg:960,min:850,max:1200,slo:890,shi:1050,n:8}};
 function getRef(beds,zone){return zone&&MKT_Z[zone]?MKT_Z[zone]:MKT[Math.min(beds,3)];}
 
 const COMPS={
@@ -440,7 +440,12 @@ const COMPS={
   oriana_9:[{id:"1854213255211491",price:1380,desc:"2 bed · Rosemont active"},{id:"1496694655331445",price:1295,desc:"2 bed · Rosemont area"},{id:"2251421432293592",price:1273,desc:"2 bed · Rosemont/Plateau"},{id:"1751217852525800",price:1550,desc:"2 bed · Plateau"},{id:"1492559009008320",price:1430,desc:"2 bed · Rosemont active"}],
   oriana_10:[{id:"1041993035163944",price:965,desc:"Studio · CDN/Plateau active"},{id:"1615361739534230",price:1020,desc:"Studio · Plateau/Rosemont"},{id:"1337514244921403",price:950,desc:"Studio · Rosemont active"},{id:"1343891087621906",price:945,desc:"Studio · Plateau area"},{id:"2252831575459743",price:1100,desc:"Studio · Plateau"}],
   oriana_11:[{id:"1041993035163944",price:965,desc:"Studio · Plateau active"},{id:"1615361739534230",price:1020,desc:"Studio · Plateau/Rosemont"},{id:"2252831575459743",price:1100,desc:"Studio · Plateau area"},{id:"1337514244921403",price:950,desc:"Studio · Rosemont active"},{id:"1343891087621906",price:945,desc:"Studio · Plateau area"}],
-  oriana_12:[{id:"1041993035163944",price:965,desc:"Studio · Plateau active"},{id:"1615361739534230",price:1020,desc:"Studio · Plateau/Rosemont"},{id:"2252831575459743",price:1100,desc:"Studio · Plateau area"},{id:"1337514244921403",price:950,desc:"Studio · Rosemont active"},{id:"1343891087621906",price:945,desc:"Studio · Plateau area"}]
+  oriana_12:[{id:"1041993035163944",price:965,desc:"Studio · Plateau active"},{id:"1615361739534230",price:1020,desc:"Studio · Plateau/Rosemont"},{id:"2252831575459743",price:1100,desc:"Studio · Plateau area"},{id:"1337514244921403",price:950,desc:"Studio · Rosemont active"},{id:"1343891087621906",price:945,desc:"Studio · Plateau area"}],
+  kathleen_4:[{id:"1320683976689040",price:1269,desc:"2 bed CDN/Plamondon active"},{id:"833285806178161",price:1295,desc:"2 bed CDN area"},{id:"1747261136642725",price:1150,desc:"2 bed CDN/Plamondon"},{id:"2262412070957439",price:1090,desc:"2 bed CDN area"},{id:"1690733308839719",price:1150,desc:"2 bed CDN active"}],
+  oriana_8:[{id:"1536312595167412",price:1595,desc:"1 bed Outremont area"},{id:"2136493617128540",price:1195,desc:"1 bed Outremont/Mile-End"},{id:"2168819030537031",price:1195,desc:"1 bed Mile-End area"},{id:"1519428872870285",price:995,desc:"1 bed Outremont active"},{id:"1694159655251945",price:1195,desc:"1 bed Outremont"}],
+  oriana_9:[{id:"1536312595167412",price:1595,desc:"2 bed Outremont area"},{id:"833285806178161",price:1295,desc:"2 bed CDN/Outremont"},{id:"1747261136642725",price:1150,desc:"2 bed CDN area"},{id:"2168819030537031",price:1195,desc:"2 bed Mile-End active"},{id:"1320683976689040",price:1269,desc:"2 bed CDN/Outremont"}],
+  oriana_10:[{id:"1041993035163944",price:965,desc:"1 bed CDN active"},{id:"1615361739534230",price:1020,desc:"1 bed CDN/Plateau"},{id:"1337514244921403",price:950,desc:"1 bed CDN area"},{id:"2262412070957439",price:1090,desc:"1 bed CDN active"},{id:"1690733308839719",price:1150,desc:"1 bed CDN/Plamondon"}],
+  oriana_11:[{id:"1320683976689040",price:1269,desc:"2 bed CDN active"},{id:"833285806178161",price:1295,desc:"2 bed CDN area"},{id:"1747261136642725",price:1150,desc:"2 bed CDN/Plamondon"},{id:"2262412070957439",price:1090,desc:"2 bed CDN active"},{id:"1690733308839719",price:1150,desc:"2 bed CDN area"}]
 };;
 
 // PRICE RULES (surgical precision):
@@ -634,24 +639,24 @@ const KATHLEEN=[
   {id:"1297695602272848",price:1650,beds:2,title:"2 Beds+Bureau - Verdun H4G",loc:"3468 Rue de Verdun, Montréal H4G 1K3",zone:"verdun_2",pets:true,desc_ok:true,photos:7,link:"https://www.facebook.com/marketplace/item/1297695602272848/"}
 ];
 const ORIANA=[
-  {id:"4333936743526446",price:999,beds:0,title:"Studio - Rue St-André H2L NEW",loc:"2002 Rue St-André, Montréal H2L 3V1",zone:"plateau_0",pets:true,desc_ok:true,photos:9,link:"https://www.facebook.com/marketplace/item/4333936743526446/"},
-  {id:"1717178149708590",price:975,beds:0,title:"Studio - Rue St-André H2L NEW",loc:"2002 Rue St-André, Montréal H2L 3V1",zone:"plateau_0",pets:true,desc_ok:true,photos:9,link:"https://www.facebook.com/marketplace/item/1717178149708590/"},
-  {id:"2479921289125738",price:1250,beds:2,title:"2 Beds - Rue St-André H2L NEW",loc:"2002 Rue St-André, Montréal H2L 3V1",zone:"plateau_2",pets:true,desc_ok:true,photos:9,link:"https://www.facebook.com/marketplace/item/2479921289125738/"},
-  {id:"1731509484829607",price:1100,beds:1,title:"1 Bed - Rue St-André H2L NEW",loc:"2002 Rue St-André, Montréal H2L 3V1",zone:"plateau_1",pets:true,desc_ok:true,photos:9,link:"https://www.facebook.com/marketplace/item/1731509484829607/"},
-  {id:"26719565651069249",price:1100,beds:1,title:"1 Bed - Rue St-André H2L NEW",loc:"2002 Rue St-André, Montréal H2L 3V1",zone:"plateau_1",pets:true,desc_ok:true,photos:9,link:"https://www.facebook.com/marketplace/item/26719565651069249/"},
-  {id:"2133909704121299",price:1195,beds:1,title:"1 Bed - Av. Bloomfield H3N",loc:"8191 Av. Bloomfield, Montréal H3N 2H8",zone:"rosemont_1",pets:true,desc_ok:true,photos:7,link:"https://www.facebook.com/marketplace/item/2133909704121299/"},
-  {id:"1622021245743292",price:1400,beds:2,title:"2 Beds - Rue Cartier H2E",loc:"7235 Rue Cartier, Montréal H2E 2J3",zone:"rosemont_2",pets:true,desc_ok:true,photos:10,link:"https://www.facebook.com/marketplace/item/1622021245743292/"},
-  {id:"2531915787259271",price:1100,beds:1,title:"1 Bed - Rue Masson H1X",loc:"3915 Rue Masson, Montréal H1X 1T2",zone:"rosemont_1",pets:true,desc_ok:true,photos:8,link:"https://www.facebook.com/marketplace/item/2531915787259271/"},
-  {id:"2079978426731789",price:950,beds:0,title:"Studio - Rue Masson H1X",loc:"3915 Rue Masson, Montréal H1X 1T2",zone:"rosemont_0",pets:true,desc_ok:true,photos:7,link:"https://www.facebook.com/marketplace/item/2079978426731789/"},
-  {id:"1302683928048846",price:1275,beds:2,title:"2 Beds - Rue St-Hubert H2R",loc:"7879 Rue St-Hubert, Montréal H2R 2P1",zone:"rosemont_2",pets:true,desc_ok:true,photos:12,link:"https://www.facebook.com/marketplace/item/1302683928048846/"},
-  {id:"1673049153835500",price:925,beds:0,title:"Studio - Av. Wilderton H3S",loc:"6510 Av. Wilderton, Montréal H3S 2L6",zone:"cdn_0",pets:true,desc_ok:true,photos:8,link:"https://www.facebook.com/marketplace/item/1673049153835500/"},
-  {id:"1556778945871466",price:1075,beds:0,title:"Studio - Rue St-Denis H2J",loc:"5576 Rue St-Denis, Montréal H2J 2M5",zone:"plateau_0",pets:true,desc_ok:true,photos:8,link:"https://www.facebook.com/marketplace/item/1556778945871466/"}
+  {id:"4333936743526446",price:999,beds:0,title:"Studio - Rue St-Andre H2L",loc:"2002 Rue St-Andre, Montreal H2L 3V1",zone:"plateau_0",pets:true,desc_ok:true,photos:9,link:"https://www.facebook.com/marketplace/item/4333936743526446/"},
+  {id:"26719565651069249",price:1100,beds:1,title:"1 Bed - Rue St-Andre H2L",loc:"2002 Rue St-Andre, Montreal H2L 3V1",zone:"plateau_1",pets:true,desc_ok:true,photos:9,link:"https://www.facebook.com/marketplace/item/26719565651069249/"},
+  {id:"2133909704121299",price:1195,beds:1,title:"1 Bed - Av. Bloomfield H3N",loc:"8191 Av. Bloomfield, Montreal H3N 2H8",zone:"rosemont_1",pets:true,desc_ok:true,photos:7,link:"https://www.facebook.com/marketplace/item/2133909704121299/"},
+  {id:"1622021245743292",price:1400,beds:2,title:"2 Beds - Rue Cartier H2E",loc:"7235 Rue Cartier, Montreal H2E 2J3",zone:"rosemont_2",pets:true,desc_ok:true,photos:10,link:"https://www.facebook.com/marketplace/item/1622021245743292/"},
+  {id:"2079978426731789",price:950,beds:0,title:"Studio - Rue Masson H1X",loc:"3915 Rue Masson, Montreal H1X 1T2",zone:"rosemont_0",pets:true,desc_ok:true,photos:7,link:"https://www.facebook.com/marketplace/item/2079978426731789/"},
+  {id:"1302683928048846",price:1275,beds:2,title:"2 Beds - Rue St-Hubert H2R",loc:"7879 Rue St-Hubert, Montreal H2R 2P1",zone:"rosemont_2",pets:true,desc_ok:true,photos:12,link:"https://www.facebook.com/marketplace/item/1302683928048846/"},
+  {id:"1673049153835500",price:925,beds:0,title:"Studio - Av. Wilderton H3S",loc:"6510 Av. Wilderton, Montreal H3S 2L6",zone:"cdn_0",pets:true,desc_ok:true,photos:8,link:"https://www.facebook.com/marketplace/item/1673049153835500/"},
+  {id:"1556778945871466",price:1075,beds:0,title:"Studio - Rue St-Denis H2J",loc:"5576 Rue St-Denis, Montreal H2J 2M5",zone:"plateau_0",pets:true,desc_ok:true,photos:8,link:"https://www.facebook.com/marketplace/item/1556778945871466/"},
+  {id:"2089793621954990",price:1350,beds:1,title:"1 Bed - Rue Hutchison H2V NEW",loc:"4688 Rue Hutchison, Montreal H2V 3Z9",zone:"outremont_1",pets:true,desc_ok:true,photos:8,link:"https://www.facebook.com/marketplace/item/2089793621954990/"},
+  {id:"1006219368670126",price:1475,beds:2,title:"2 Beds - Rue Hutchison H2V NEW",loc:"4688 Rue Hutchison, Montreal H2V 3Z9",zone:"outremont_2",pets:true,desc_ok:true,photos:8,link:"https://www.facebook.com/marketplace/item/1006219368670126/"},
+  {id:"1247370840626384",price:1100,beds:1,title:"1 Bed - Av. Wilderton H3S NEW",loc:"6510 Avenue Wilderton, Montreal H3S 2L6",zone:"cdn_1",pets:true,desc_ok:true,photos:7,link:"https://www.facebook.com/marketplace/item/1247370840626384/"},
+  {id:"1926663458035953",price:1450,beds:2,title:"2 Beds - Av. Wilderton H3S NEW",loc:"6510 Avenue Wilderton, Montreal H3S 2L6",zone:"cdn_2",pets:true,desc_ok:true,photos:8,link:"https://www.facebook.com/marketplace/item/1926663458035953/"}
 ];
 const ALL_DATA=[...FERNANDO.map(i=>({...i,agent:"Fernando",agentColor:"#6366f1",agent_key:"fernando"})),...JENY.map(i=>({...i,agent:"Jeny",agentColor:"#10b981",agent_key:"jeny"})),...KATHLEEN.map(i=>({...i,agent:"Kathleen",agentColor:"#f59e0b",agent_key:"kathleen"})),...ORIANA.map(i=>({...i,agent:"Oriana",agentColor:"#ec4899",agent_key:"oriana"}))];
 
 function renderKPIs(){
   const scores=ALL_DATA.map(i=>calcScore(i));const avgSc=Math.round(scores.reduce((a,b)=>a+b,0)/scores.length);const needAtt=scores.filter(s=>s<55).length;const avgPrice=Math.round(ALL_DATA.reduce((s,i)=>s+i.price,0)/ALL_DATA.length);
-  document.getElementById("kpi-row").innerHTML=`<div class="kpi" style="--ac:#6366f1"><div class="kpi-icon">📦</div><div class="kpi-val">${ALL_DATA.length}</div><div class="kpi-label">Active Listings</div><div class="kpi-sub">4 agents · Montréal area</div></div><div class="kpi" style="--ac:#10b981"><div class="kpi-icon">💰</div><div class="kpi-val">CA$${avgPrice.toLocaleString()}</div><div class="kpi-label">Avg Price/Month</div><div class="kpi-sub">Apts & studios only</div></div><div class="kpi" style="--ac:#f59e0b"><div class="kpi-icon">⭐</div><div class="kpi-val">4.4 ★</div><div class="kpi-label">Avg Agent Rating</div><div class="kpi-sub">Fernando 4.7 · Oriana ~4.9</div></div><div class="kpi" style="--ac:#8b5cf6"><div class="kpi-icon">🎯</div><div class="kpi-val">${avgSc}/100</div><div class="kpi-label">Portfolio Score</div><div class="kpi-sub">Price · Photos · Freshness</div></div><div class="kpi kpi-clickable" style="--ac:#ef4444" onclick="openAtt()" title="Click to see all listings needing attention"><div class="kpi-icon">⚠️</div><div class="kpi-val">${needAtt}</div><div class="kpi-label">Need Attention</div><div class="kpi-sub" style="color:#fca5a5;font-weight:600">👆 Click to view</div></div>`;
+  document.getElementById("kpi-row").innerHTML=`<div class="kpi" style="--ac:#6366f1"><div class="kpi-icon">📦</div><div class="kpi-val">${ALL_DATA.length}</div><div class="kpi-label">Active Listings</div><div class="kpi-sub">4 agents · Montréal area</div></div><div class="kpi" style="--ac:#10b981"><div class="kpi-icon">💰</div><div class="kpi-val">CA$${avgPrice.toLocaleString()}</div><div class="kpi-label">Avg Price/Month</div><div class="kpi-sub">Apts & studios only</div></div><div class="kpi" style="--ac:#f59e0b"><div class="kpi-icon">⭐</div><div class="kpi-val">4.1 ★</div><div class="kpi-label">Avg Agent Rating</div><div class="kpi-sub">Fernando 4.7 · Oriana 4.1</div></div><div class="kpi" style="--ac:#8b5cf6"><div class="kpi-icon">🎯</div><div class="kpi-val">${avgSc}/100</div><div class="kpi-label">Portfolio Score</div><div class="kpi-sub">Price · Photos · Freshness</div></div><div class="kpi kpi-clickable" style="--ac:#ef4444" onclick="openAtt()" title="Click to see all listings needing attention"><div class="kpi-icon">⚠️</div><div class="kpi-val">${needAtt}</div><div class="kpi-label">Need Attention</div><div class="kpi-sub" style="color:#fca5a5;font-weight:600">👆 Click to view</div></div>`;
 }
 
 function renderRanking(){
@@ -684,10 +689,10 @@ function renderCharts(){
 }
 function renderAll(){
   renderKPIs();
-  renderAgent("fernando",FERNANDO,"Fernando Muñoz","FM","#6366f1","4.7","47","6","2010","https://www.facebook.com/marketplace/profile/1764619868/","fernando");
-  renderAgent("jeny",JENY,"Jeny Ocaranza (Jenifer)","JO","#10b981","4.0","14","13","2010","https://www.facebook.com/marketplace/profile/100001182962462/","jeny");
-  renderAgent("kathleen",KATHLEEN,"Kathleen Harvey","KH","#f59e0b","3.9","12","4","2007","https://www.facebook.com/marketplace/profile/658666244/","kathleen");
-  renderAgent("oriana",ORIANA,"Oriana Samboni","OS","#ec4899","~4.9","73","13","2021","https://www.facebook.com/marketplace/profile/100065415266053/","oriana");
+  renderAgent("fernando",FERNANDO,"Fernando Muñoz","FM","#6366f1","4.7","58","5","2010","https://www.facebook.com/marketplace/profile/1764619868/","fernando");
+  renderAgent("jeny",JENY,"Jeny Ocaranza","JO","#10b981","4.0","18","9","2010","https://www.facebook.com/marketplace/profile/100001182962462/","jeny");
+  renderAgent("kathleen",KATHLEEN,"Kathleen Harvey","KH","#f59e0b","3.7","17","5","2007","https://www.facebook.com/marketplace/profile/658666244/","kathleen");
+  renderAgent("oriana",ORIANA,"Oriana Samboni","OS","#ec4899","4.1","77","12","2021","https://www.facebook.com/marketplace/profile/100065415266053/","oriana");
   renderRanking();
   if(chartsBuilt)renderCharts();
 }
