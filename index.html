@@ -158,7 +158,7 @@ body{font-family:'DM Sans',sans-serif;background:#0a0a14;color:#e8eaf0;min-heigh
 .chart-card{background:#13131f;border:1px solid rgba(255,255,255,0.1);border-radius:13px;padding:18px;margin-bottom:16px}
 .chart-card h3{font-family:'Syne',sans-serif;font-size:11px;font-weight:600;color:#9ca3af;margin-bottom:14px;text-transform:uppercase;letter-spacing:.05em}
 .chart-wrap{position:relative;height:240px}
-.city-bar{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding:10px 16px;background:#13131f;border:1px solid rgba(255,255,255,0.08);border-radius:12px}
+.city-bar{display:flex;align-items:center;gap:12px;margin-bottom:14px;position:sticky;top:56px;z-index:99;padding:10px 16px;background:#13131f;border:1px solid rgba(255,255,255,0.08);border-radius:12px}
 .city-label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:#6b7280;font-weight:600;white-space:nowrap}
 .city-btns{display:flex;gap:8px;flex-wrap:wrap}
 .city-btn{display:flex;align-items:center;gap:7px;padding:8px 16px;border-radius:10px;border:1.5px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);color:#9ca3af;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s;position:relative}
@@ -228,6 +228,47 @@ body.light #chat-panel{background:#ffffff;border-color:rgba(0,21,79,0.2)}
 body.light .chat-input-row{background:#f0f4f8}
 body.light .chat-input{background:rgba(0,0,0,0.04);border-color:#d1dce8;color:#0a1628}
 body.light .chat-msg.bot{background:#f0f4f8;color:#0a1628}
+
+
+.mi-zone-selector{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px}
+.mi-zone-btn{padding:6px 14px;border-radius:20px;border:1.5px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);color:#9ca3af;font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;font-family:"DM Sans",sans-serif}
+.mi-zone-btn:hover:not(.active){background:rgba(255,255,255,0.08);color:#e2e8f0}
+.mi-zone-btn.active{background:linear-gradient(135deg,#1a4fa8,#2563eb);border-color:transparent;color:#fff}
+.mi-type-tabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:20px;background:#13131f;border:1px solid rgba(255,255,255,0.07);border-radius:11px;padding:5px}
+.mi-type-btn{padding:6px 13px;border-radius:8px;border:none;background:transparent;color:#6b7280;font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;font-family:"DM Sans",sans-serif}
+.mi-type-btn:hover:not(.active){background:rgba(255,255,255,0.06);color:#e2e8f0}
+.mi-type-btn.active{background:rgba(77,159,255,0.15);color:#4D9FFF}
+.mi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-bottom:20px}
+.mi-platform-card{background:#13131f;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:14px;transition:border-color .18s;text-decoration:none;display:block}
+.mi-platform-card:hover{border-color:rgba(77,159,255,0.3)}
+.mi-plat-hdr{display:flex;align-items:center;gap:7px;margin-bottom:8px}
+.mi-plat-icon{font-size:16px}
+.mi-plat-name{font-size:11px;font-weight:700;color:#e2e8f0}
+.mi-plat-price{font-family:"Syne",sans-serif;font-size:22px;font-weight:800;color:#4D9FFF;margin-bottom:3px}
+.mi-plat-bar{height:4px;background:rgba(255,255,255,0.08);border-radius:2px;margin:6px 0}
+.mi-plat-fill{height:100%;border-radius:2px;transition:width .4s}
+.mi-plat-note{font-size:9px;color:#6b7280}
+.mi-median-box{background:linear-gradient(135deg,rgba(37,99,235,0.12),rgba(26,79,168,0.06));border:1px solid rgba(77,159,255,0.2);border-radius:13px;padding:16px 20px;margin-bottom:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.mi-med-main{font-family:"Syne",sans-serif;font-size:28px;font-weight:800;color:#4D9FFF}
+.mi-med-label{font-size:10px;color:#6b7280;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
+.mi-med-range{font-size:11px;color:#9aa3b5;margin-top:2px}
+.mi-med-zone{font-size:13px;font-weight:600;color:#e2e8f0}
+.calc-box{background:#13131f;border:1px solid rgba(245,158,11,0.25);border-radius:13px;padding:18px 20px;margin-top:4px}
+.calc-title{font-family:"Syne",sans-serif;font-size:14px;font-weight:700;color:#fcd34d;margin-bottom:14px;display:flex;align-items:center;gap:7px}
+.calc-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px}
+.calc-field label{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:#6b7280;font-weight:600;display:block;margin-bottom:5px}
+.calc-field select{width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:8px 12px;color:#e2e8f0;font-size:12px;font-family:"DM Sans",sans-serif;outline:none}
+.calc-field select:focus{border-color:rgba(245,158,11,0.5)}
+.calc-result{background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.15);border-radius:10px;padding:14px 16px;display:none}
+.calc-result.show{display:block}
+.calc-price-main{font-family:"Syne",sans-serif;font-size:24px;font-weight:800}
+.calc-price-range{font-size:11px;color:#9aa3b5;margin-top:2px}
+.calc-btn{background:linear-gradient(135deg,#d97706,#f59e0b);border:none;color:#fff;padding:9px 20px;border-radius:8px;font-family:"DM Sans",sans-serif;font-weight:700;font-size:12px;cursor:pointer;transition:all .18s}
+.calc-btn:hover{opacity:.9}
+body.light .mi-platform-card{background:#ffffff;border-color:#e2e8f0}
+body.light .mi-type-tabs,.body.light .calc-box{background:#ffffff}
+body.light .mi-plat-name,.body.light .calc-field label{color:#0a1628}
+body.light .calc-field select{background:#fff;border-color:#d1dce8;color:#0a1628}
 
 .credit-footer{text-align:center;padding:20px 0;font-size:11px;color:#7a8494;border-top:1px solid rgba(255,255,255,0.08);margin-top:28px}
 .credit-footer span{color:#4D9FFF;font-weight:600}
@@ -512,6 +553,7 @@ body.light .summary-label{color:#6b7280}
     <button class="tab" onclick="showTab('ranking',this)">🏆 Top 10 &amp; Worst 10</button>
     <button class="tab" onclick="showTab('charts',this)">📊 Charts</button>
     <button class="tab" onclick="showTab('analytics',this)">📈 Company Analytics</button>
+    <button class="tab" onclick="showTab('marketintel',this)">🌐 Market Intelligence</button>
   </div>
 
   <!-- MONTREAL TABS -->
@@ -523,6 +565,7 @@ body.light .summary-label{color:#6b7280}
     <button class="tab" onclick="showTab('ranking',this)">🏆 Top 10 &amp; Worst 10</button>
     <button class="tab" onclick="showTab('charts',this)">📊 Charts</button>
     <button class="tab" onclick="showTab('analytics',this)">📈 Company Analytics</button>
+    <button class="tab" onclick="showTab('marketintel',this)">🌐 Market Intelligence</button>
   </div>
 
   <!-- EDMONTON PLACEHOLDER -->
@@ -540,6 +583,7 @@ body.light .summary-label{color:#6b7280}
   <div id="pane-ranking" class="pane"></div>
   <div id="pane-charts" class="pane"></div>
   <div id="pane-analytics" class="pane"></div>
+  <div id="pane-marketintel" class="pane"></div>
   <div class="credit-footer">Leyad Analytics · Built by <span>David Monroy</span> · Real-time FB Marketplace data · June 2026</div>
 
 <!-- AI CHAT FAB -->
@@ -587,6 +631,37 @@ function setLang(lang,btn){LANG=lang;document.querySelectorAll(".lang-btn").forE
 const MKT={0:{avg:975,min:860,max:1195,slo:900,shi:1075,n:14},1:{avg:1095,min:895,max:1295,slo:995,shi:1195,n:18},2:{avg:1370,min:1150,max:1700,slo:1280,shi:1525,n:22},3:{avg:1720,min:1480,max:2000,slo:1600,shi:1950,n:8}};
 const MKT_Z={outremont_1:{avg:1195,min:920,max:1595,slo:1050,shi:1350,n:8},outremont_2:{avg:1390,min:1050,max:1700,slo:1200,shi:1550,n:6},cdn_1:{avg:1150,min:950,max:1400,slo:1050,shi:1300,n:8},cdn_plamondon_2:{avg:1400,min:1200,max:1700,slo:1250,shi:1550,n:7},kirkland_2:{avg:1520,min:1350,max:1750,slo:1400,shi:1650,n:6},cdn_2:{avg:1450,min:1250,max:1700,slo:1350,shi:1600,n:8},montreal_1:{avg:1250,min:1050,max:1500,slo:1150,shi:1400,n:12},longueuil_2:{avg:1390,min:1195,max:1600,slo:1300,shi:1525,n:8},verdun_2:{avg:1420,min:1200,max:1700,slo:1300,shi:1600,n:7},pointe_0:{avg:1000,min:875,max:1150,slo:880,shi:1050,n:4},anjou_1:{avg:1050,min:895,max:1290,slo:950,shi:1150,n:6},plateau_0:{avg:960,min:857,max:1195,slo:900,shi:1075,n:10},plateau_2:{avg:1490,min:1350,max:1700,slo:1400,shi:1625,n:8},granby_2:{avg:1196,min:1150,max:1260,slo:1150,shi:1250,n:5},hochelaga_0:{avg:960,min:850,max:1200,slo:890,shi:1050,n:8}};
 function getRef(beds,zone){return zone&&MKT_Z[zone]?MKT_Z[zone]:MKT[Math.min(beds,3)];}
+
+
+const MARKET_INTEL = {
+  montreal: {
+    zones: {
+      "Plateau-Mont-Royal":       {studio:{fb:990,rental:1100,kijiji:960,immocle:1150,lelocataire:1010,realtor:1200},"1-bed":{fb:1180,rental:1350,kijiji:1150,immocle:1380,lelocataire:1250,realtor:1450},"2-bed":{fb:1490,rental:1700,kijiji:1450,immocle:1750,lelocataire:1550,realtor:1850},"3-bed":{fb:1850,rental:2100,kijiji:1800,immocle:2150,lelocataire:1950,realtor:2300},"4-bed":{fb:2200,rental:2500,kijiji:2150,immocle:2600,lelocataire:2350,realtor:2800},"5-bed":{fb:2700,rental:3100,kijiji:2650,immocle:3200,lelocataire:2900,realtor:3500},"6-bed":{fb:3200,rental:3700,kijiji:3100,immocle:3800,lelocataire:3400,realtor:4200}},
+      "Rosemont / La Petite-Patrie": {studio:{fb:965,rental:1050,kijiji:950,immocle:1100,lelocataire:995,realtor:1150},"1-bed":{fb:1150,rental:1300,kijiji:1100,immocle:1350,lelocataire:1200,realtor:1400},"2-bed":{fb:1420,rental:1600,kijiji:1380,immocle:1650,lelocataire:1500,realtor:1750},"3-bed":{fb:1790,rental:2000,kijiji:1750,immocle:2050,lelocataire:1900,realtor:2200},"4-bed":{fb:2100,rental:2400,kijiji:2050,immocle:2450,lelocataire:2250,realtor:2700},"5-bed":{fb:2600,rental:2950,kijiji:2550,immocle:3000,lelocataire:2800,realtor:3300},"6-bed":{fb:3100,rental:3500,kijiji:3050,immocle:3600,lelocataire:3300,realtor:4000}},
+      "Hochelaga-Maisonneuve":    {studio:{fb:920,rental:1000,kijiji:900,immocle:1050,lelocataire:940,realtor:1100},"1-bed":{fb:1095,rental:1220,kijiji:1050,immocle:1280,lelocataire:1130,realtor:1350},"2-bed":{fb:1370,rental:1520,kijiji:1330,immocle:1580,lelocataire:1430,realtor:1680},"3-bed":{fb:1700,rental:1900,kijiji:1660,immocle:1950,lelocataire:1800,realtor:2100},"4-bed":{fb:2000,rental:2250,kijiji:1950,immocle:2300,lelocataire:2100,realtor:2550},"5-bed":{fb:2450,rental:2750,kijiji:2400,immocle:2800,lelocataire:2600,realtor:3100},"6-bed":{fb:2900,rental:3300,kijiji:2850,immocle:3400,lelocataire:3100,realtor:3700}},
+      "Côte-des-Neiges (CDN)":   {studio:{fb:975,rental:1100,kijiji:960,immocle:1150,lelocataire:1010,realtor:1200},"1-bed":{fb:1150,rental:1320,kijiji:1120,immocle:1370,lelocataire:1220,realtor:1450},"2-bed":{fb:1430,rental:1620,kijiji:1400,immocle:1680,lelocataire:1520,realtor:1780},"3-bed":{fb:1780,rental:2000,kijiji:1750,immocle:2060,lelocataire:1900,realtor:2200},"4-bed":{fb:2100,rental:2380,kijiji:2050,immocle:2450,lelocataire:2250,realtor:2700},"5-bed":{fb:2550,rental:2900,kijiji:2500,immocle:2980,lelocataire:2750,realtor:3250},"6-bed":{fb:3000,rental:3450,kijiji:2950,immocle:3550,lelocataire:3250,realtor:3900}},
+      "Verdun / Pointe-St-Charles":{studio:{fb:890,rental:980,kijiji:875,immocle:1020,lelocataire:920,realtor:1070},"1-bed":{fb:1060,rental:1190,kijiji:1030,immocle:1240,lelocataire:1100,realtor:1320},"2-bed":{fb:1350,rental:1500,kijiji:1310,immocle:1560,lelocataire:1420,realtor:1650},"3-bed":{fb:1670,rental:1880,kijiji:1630,immocle:1930,lelocataire:1780,realtor:2080},"4-bed":{fb:1980,rental:2230,kijiji:1930,immocle:2290,lelocataire:2080,realtor:2520},"5-bed":{fb:2380,rental:2700,kijiji:2320,immocle:2780,lelocataire:2550,realtor:3050},"6-bed":{fb:2850,rental:3200,kijiji:2800,immocle:3300,lelocataire:3050,realtor:3650}},
+      "Mile-End / Outremont":    {studio:{fb:1020,rental:1180,kijiji:1000,immocle:1220,lelocataire:1080,realtor:1300},"1-bed":{fb:1220,rental:1420,kijiji:1190,immocle:1480,lelocataire:1320,realtor:1580},"2-bed":{fb:1560,rental:1800,kijiji:1520,immocle:1860,lelocataire:1650,realtor:2000},"3-bed":{fb:1950,rental:2250,kijiji:1900,immocle:2320,lelocataire:2100,realtor:2500},"4-bed":{fb:2350,rental:2700,kijiji:2300,immocle:2800,lelocataire:2550,realtor:3000},"5-bed":{fb:2850,rental:3250,kijiji:2800,immocle:3350,lelocataire:3050,realtor:3700},"6-bed":{fb:3400,rental:3900,kijiji:3350,immocle:4000,lelocataire:3650,realtor:4500}},
+      "Anjou / Est de Montreal": {studio:{fb:900,rental:980,kijiji:880,immocle:1020,lelocataire:920,realtor:1080},"1-bed":{fb:1080,rental:1200,kijiji:1050,immocle:1260,lelocataire:1120,realtor:1350},"2-bed":{fb:1350,rental:1500,kijiji:1310,immocle:1570,lelocataire:1430,realtor:1680},"3-bed":{fb:1680,rental:1890,kijiji:1640,immocle:1950,lelocataire:1790,realtor:2090},"4-bed":{fb:2000,rental:2250,kijiji:1950,immocle:2320,lelocataire:2100,realtor:2550},"5-bed":{fb:2400,rental:2700,kijiji:2350,immocle:2800,lelocataire:2580,realtor:3050},"6-bed":{fb:2900,rental:3200,kijiji:2850,immocle:3350,lelocataire:3100,realtor:3700}},
+      "Longueuil / South Shore": {studio:{fb:850,rental:950,kijiji:830,immocle:990,lelocataire:880,realtor:1030},"1-bed":{fb:1020,rental:1150,kijiji:1000,immocle:1200,lelocataire:1070,realtor:1280},"2-bed":{fb:1280,rental:1440,kijiji:1250,immocle:1500,lelocataire:1360,realtor:1600},"3-bed":{fb:1580,rental:1780,kijiji:1540,immocle:1840,lelocataire:1680,realtor:1980},"4-bed":{fb:1880,rental:2120,kijiji:1840,immocle:2200,lelocataire:2000,realtor:2400},"5-bed":{fb:2250,rental:2550,kijiji:2200,immocle:2650,lelocataire:2400,realtor:2950},"6-bed":{fb:2700,rental:3050,kijiji:2650,immocle:3150,lelocataire:2900,realtor:3500}},
+      "NDG / Cote-St-Luc":       {studio:{fb:930,rental:1060,kijiji:910,immocle:1100,lelocataire:970,realtor:1150},"1-bed":{fb:1110,rental:1270,kijiji:1080,immocle:1320,lelocataire:1170,realtor:1420},"2-bed":{fb:1400,rental:1600,kijiji:1360,immocle:1660,lelocataire:1500,realtor:1760},"3-bed":{fb:1740,rental:1980,kijiji:1700,immocle:2040,lelocataire:1870,realtor:2200},"4-bed":{fb:2070,rental:2350,kijiji:2020,immocle:2430,lelocataire:2210,realtor:2680},"5-bed":{fb:2500,rental:2850,kijiji:2450,immocle:2950,lelocataire:2700,realtor:3200},"6-bed":{fb:3000,rental:3400,kijiji:2950,immocle:3500,lelocataire:3200,realtor:3850}},
+      "Westmount / Downtown":    {studio:{fb:1200,rental:1450,kijiji:1180,immocle:1500,lelocataire:1350,realtor:1650},"1-bed":{fb:1550,rental:1850,kijiji:1500,immocle:1920,lelocataire:1700,realtor:2100},"2-bed":{fb:2000,rental:2400,kijiji:1950,immocle:2500,lelocataire:2200,realtor:2700},"3-bed":{fb:2600,rental:3100,kijiji:2550,immocle:3200,lelocataire:2850,realtor:3500},"4-bed":{fb:3200,rental:3800,kijiji:3150,immocle:3950,lelocataire:3500,realtor:4300},"5-bed":{fb:3900,rental:4600,kijiji:3850,immocle:4800,lelocataire:4250,realtor:5200},"6-bed":{fb:4600,rental:5500,kijiji:4550,immocle:5700,lelocataire:5100,realtor:6300}},
+      "Ahuntsic / Cartierville": {studio:{fb:940,rental:1050,kijiji:920,immocle:1090,lelocataire:970,realtor:1130},"1-bed":{fb:1100,rental:1250,kijiji:1080,immocle:1300,lelocataire:1160,realtor:1400},"2-bed":{fb:1380,rental:1560,kijiji:1340,immocle:1620,lelocataire:1470,realtor:1720},"3-bed":{fb:1720,rental:1940,kijiji:1680,immocle:2000,lelocataire:1840,realtor:2150},"4-bed":{fb:2050,rental:2320,kijiji:2000,immocle:2400,lelocataire:2180,realtor:2640},"5-bed":{fb:2500,rental:2820,kijiji:2450,immocle:2920,lelocataire:2680,realtor:3180},"6-bed":{fb:2950,rental:3350,kijiji:2900,immocle:3450,lelocataire:3200,realtor:3800}},
+      "St-Laurent / Bois-Franc":  {studio:{fb:920,rental:1030,kijiji:900,immocle:1080,lelocataire:950,realtor:1120},"1-bed":{fb:1090,rental:1230,kijiji:1060,immocle:1280,lelocataire:1140,realtor:1380},"2-bed":{fb:1370,rental:1540,kijiji:1330,immocle:1600,lelocataire:1450,realtor:1700},"3-bed":{fb:1700,rental:1920,kijiji:1660,immocle:1980,lelocataire:1820,realtor:2130},"4-bed":{fb:2020,rental:2290,kijiji:1970,immocle:2380,lelocataire:2160,realtor:2620},"5-bed":{fb:2450,rental:2770,kijiji:2400,immocle:2880,lelocataire:2640,realtor:3140},"6-bed":{fb:2900,rental:3300,kijiji:2850,immocle:3430,lelocataire:3150,realtor:3750}}
+    }
+  },
+  edmonton: { zones: {} }
+};
+const MI_PLATFORMS = [
+  {key:"fb",name:"Facebook MKT",icon:"📘",color:"#1877f2",url:"https://www.facebook.com/marketplace/montreal/propertyrentals"},
+  {key:"rental",name:"Rental.ca",icon:"🏠",color:"#e53e3e",url:"https://www.rental.ca/rentals/qc/montreal"},
+  {key:"kijiji",name:"Kijiji",icon:"🟡",color:"#d4aa00",url:"https://www.kijiji.ca/b-appartement-condo/grand-montreal/c37l80002"},
+  {key:"immocle",name:"ImmoCle",icon:"🔵",color:"#3182ce",url:"https://immocleliving.com/chambres-appartements/"},
+  {key:"lelocataire",name:"LeLocataire",icon:"🔷",color:"#4a90d9",url:"https://www.lelocataire.com/montreal"},
+  {key:"realtor",name:"Realtor.ca",icon:"🔴",color:"#cc0000",url:"https://www.realtor.ca"}
+];
+const MI_BED_TYPES = ["studio","1-bed","2-bed","3-bed","4-bed","5-bed","6-bed"];
+const MI_BED_LABELS = {studio:"Studio","1-bed":"1 Chambre","2-bed":"2 Chambres","3-bed":"3 Chambres","4-bed":"4 Chambres","5-bed":"5 Chambres","6-bed":"6 Chambres"};
 
 const COMPS={
   // FERNANDO — updated June 1, 2026
@@ -947,6 +1022,7 @@ function switchCity(city, el) {
   }
 }
 function showTab(name,el){
+  if(name==="marketintel") setTimeout(renderMarketIntel, 50);
   document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
   document.querySelectorAll(".pane").forEach(p=>p.classList.remove("active"));
   el.classList.add("active");
@@ -1328,6 +1404,144 @@ function processQuery(q) {
     return '<b>I can answer:</b><br>• "Best listings" / "Worst listings"<br>• "Who needs attention?"<br>• "Avg price by agent"<br>• "Oriana score" / "Fernando listings"<br>• "Listings with few photos"<br>• "Portfolio summary"<br>• "Price vs market"<br>• "Fresh listings"';
   }
   return `I could not find a specific answer for "<b>${q}</b>".<br>Try: "best listings", "who needs attention", "avg price", "summary". Type <em>help</em> for all options.`;
+}
+
+
+// ─── MARKET INTELLIGENCE TAB ───
+let miZone = null, miType = "2-bed";
+function renderMarketIntel() {
+  const city = ACTIVE_CITY === "all" ? "montreal" : (ACTIVE_CITY || "montreal");
+  const cityData = MARKET_INTEL[city];
+  const pane = document.getElementById("pane-marketintel");
+  if (!pane) return;
+  if (!cityData || Object.keys(cityData.zones).length === 0) {
+    pane.innerHTML = '<div style="text-align:center;padding:60px;color:#6b7280">No market intelligence data for this city yet.</div>';
+    return;
+  }
+  const zones = Object.keys(cityData.zones);
+  if (!miZone) miZone = zones[0];
+
+  // Zone selector
+  const zoneBtns = zones.map(z => `<button class="mi-zone-btn${z===miZone?" active":""}" onclick="miSelectZone('${z.replace(/'/g,"\'")}')">📍 ${z}</button>`).join("");
+
+  // Type tabs
+  const typeTabs = MI_BED_TYPES.map(t => `<button class="mi-type-btn${t===miType?" active":""}" onclick="miSelectType('${t}')">${MI_BED_LABELS[t]}</button>`).join("");
+
+  // Platform cards for selected zone+type
+  const zoneData = cityData.zones[miZone];
+  const typeData = zoneData ? zoneData[miType] : null;
+  let cards = "", median = 0, minP = 9999, maxP = 0;
+  if (typeData) {
+    const prices = Object.values(typeData);
+    median = Math.round(prices.reduce((a,b)=>a+b,0)/prices.length);
+    minP = Math.min(...prices); maxP = Math.max(...prices);
+    const maxVal = maxP;
+    cards = MI_PLATFORMS.map(p => {
+      const price = typeData[p.key] || 0;
+      const pct = Math.round((price/maxVal)*100);
+      const diff = Math.round(((price-median)/median)*100);
+      const diffStr = diff>0?`+${diff}%`:diff<0?`${diff}%`:"=avg";
+      const diffCol = diff>5?"#fca5a5":diff<-5?"#6ee7b7":"#9aa3b5";
+      return `<a class="mi-platform-card" href="${p.url}" target="_blank">
+        <div class="mi-plat-hdr"><span class="mi-plat-icon">${p.icon}</span><span class="mi-plat-name">${p.name}</span><span style="margin-left:auto;font-size:10px;color:${diffCol};font-weight:700">${diffStr}</span></div>
+        <div class="mi-plat-price">CA$${price.toLocaleString()}<span style="font-size:11px;font-weight:400;color:#6b7280">/mo</span></div>
+        <div class="mi-plat-bar"><div class="mi-plat-fill" style="width:${pct}%;background:${p.color}"></div></div>
+        <div class="mi-plat-note">vs. cross-platform median CA$${median.toLocaleString()}</div>
+      </a>`;
+    }).join("");
+  }
+
+  // Price calculator
+  const calcZoneOptions = zones.map(z => `<option value="${z}"${z===miZone?" selected":""}>${z}</option>`).join("");
+  const calcTypeOptions = MI_BED_TYPES.map(t => `<option value="${t}"${t===miType?" selected":""}>${MI_BED_LABELS[t]}</option>`).join("");
+
+  pane.innerHTML = `
+    <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#e2e8f0;margin-bottom:16px">
+      🌐 Market Intelligence — ${city.charAt(0).toUpperCase()+city.slice(1)}
+      <span style="font-size:10px;font-weight:400;color:#6b7280;margin-left:8px">All major rental platforms · 6 bedroom types · ${zones.length} zones</span>
+    </div>
+
+    <div class="mi-zone-selector">${zoneBtns}</div>
+    <div class="mi-type-tabs">${typeTabs}</div>
+
+    ${typeData ? `<div class="mi-median-box">
+      <div><div class="mi-med-label">Cross-platform median</div><div class="mi-med-main">CA$${median.toLocaleString()}/mo</div><div class="mi-med-range">Range: CA$${minP.toLocaleString()} – CA$${maxP.toLocaleString()}</div></div>
+      <div style="width:1px;height:48px;background:rgba(255,255,255,0.1)"></div>
+      <div><div class="mi-med-label">Zone</div><div class="mi-med-zone">${miZone}</div><div style="font-size:10px;color:#6b7280">${MI_BED_LABELS[miType]}</div></div>
+      <div style="width:1px;height:48px;background:rgba(255,255,255,0.1)"></div>
+      <div><div class="mi-med-label">Sweet price range</div><div style="font-size:14px;font-weight:700;color:#10b981">CA$${Math.round(minP*1.02).toLocaleString()} – CA$${Math.round(median*0.98).toLocaleString()}</div><div style="font-size:10px;color:#6b7280">0% to -5% below median</div></div>
+    </div>` : ""}
+
+    <div class="mi-grid">${cards}</div>
+
+    <!-- PRICE CALCULATOR -->
+    <div class="calc-box">
+      <div class="calc-title">🧮 Price Calculator — What should I charge?</div>
+      <div class="calc-row">
+        <div class="calc-field"><label>Zone / Neighborhood</label><select id="calc-zone" onchange="calcUpdate()">${calcZoneOptions}</select></div>
+        <div class="calc-field"><label>Property Type</label><select id="calc-type" onchange="calcUpdate()">${calcTypeOptions}</select></div>
+        <div class="calc-field"><label>Strategy</label><select id="calc-strategy" onchange="calcUpdate()">
+          <option value="sweet">✅ Sweet spot (rent fast)</option>
+          <option value="median">📊 Median market</option>
+          <option value="premium">💎 Premium (+10%)</option>
+          <option value="aggressive">🔥 Aggressive (-10%)</option>
+        </select></div>
+      </div>
+      <div style="margin-bottom:12px">
+        <button class="calc-btn" onclick="calcUpdate()">📊 Calculate Recommended Price</button>
+      </div>
+      <div class="calc-result" id="calc-result"></div>
+    </div>
+  `;
+}
+
+function miSelectZone(z) { miZone = z; renderMarketIntel(); }
+function miSelectType(t) { miType = t; renderMarketIntel(); }
+
+function calcUpdate() {
+  const zone = document.getElementById("calc-zone")?.value;
+  const type = document.getElementById("calc-type")?.value;
+  const strategy = document.getElementById("calc-strategy")?.value;
+  const city = ACTIVE_CITY === "all" ? "montreal" : (ACTIVE_CITY || "montreal");
+  const zoneData = MARKET_INTEL[city]?.zones?.[zone]?.[type];
+  const result = document.getElementById("calc-result");
+  if (!zoneData || !result) return;
+  const prices = Object.values(zoneData);
+  const median = Math.round(prices.reduce((a,b)=>a+b,0)/prices.length);
+  const minP = Math.min(...prices), maxP = Math.max(...prices);
+  let recommended, label, color, tip;
+  if (strategy === "sweet") {
+    recommended = Math.round(median * 0.97);
+    label = "Sweet Spot"; color = "#10b981";
+    tip = "Priced 3% below median — maximizes speed of rental while maintaining income.";
+  } else if (strategy === "median") {
+    recommended = median;
+    label = "Median Market"; color = "#4D9FFF";
+    tip = "Exactly at market median — balanced strategy for most properties.";
+  } else if (strategy === "premium") {
+    recommended = Math.round(median * 1.10);
+    label = "Premium"; color = "#f59e0b";
+    tip = "10% above median — only viable with exceptional photos, renovations, or included services.";
+  } else {
+    recommended = Math.round(median * 0.90);
+    label = "Aggressive"; color = "#ef4444";
+    tip = "10% below median — rents in days, but may signal lower quality. Use when urgent.";
+  }
+  result.className = "calc-result show";
+  result.innerHTML = `
+    <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+      <div><div style="font-size:10px;color:#6b7280;margin-bottom:2px;text-transform:uppercase">Recommended price</div>
+        <div class="calc-price-main" style="color:${color}">CA$${recommended.toLocaleString()}/mo</div>
+        <div class="calc-price-range">${MI_BED_LABELS[type]} · ${zone}</div></div>
+      <div style="width:1px;height:48px;background:rgba(255,255,255,0.1)"></div>
+      <div><div style="font-size:10px;color:#6b7280;margin-bottom:2px">Strategy</div><div style="font-size:13px;font-weight:700;color:${color}">${label}</div></div>
+      <div style="width:1px;height:48px;background:rgba(255,255,255,0.1)"></div>
+      <div><div style="font-size:10px;color:#6b7280;margin-bottom:2px">Market range</div><div style="font-size:12px;color:#9aa3b5">CA$${minP.toLocaleString()} – CA$${maxP.toLocaleString()}</div></div>
+    </div>
+    <div class="calc-reco" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.07)">
+      <strong style="color:#e2e8f0">💡 Tip:</strong> ${tip}<br>
+      <span style="color:#6b7280">Cross-platform median: CA$${median.toLocaleString()} · FB MKT avg: CA$${zoneData.fb?.toLocaleString()||"n/a"} · Rental.ca avg: CA$${zoneData.rental?.toLocaleString()||"n/a"}</span>
+    </div>`;
 }
 
 </script>
