@@ -1113,7 +1113,6 @@ function showTab(name,el){
 }
 let analyticsFilter = '3m';
 let analyticsCharts = {};
-renderAll();
 
 function openAtt(){
   const attItems=ALL_DATA.map((item,idx)=>{
@@ -1711,6 +1710,7 @@ function calcUpdate() {
     </div>`;
 }
 
+renderAll();
 </script>
 
 <div class="att-overlay" id="att-overlay" onclick="if(event.target===this)closeAtt()">
