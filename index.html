@@ -1111,6 +1111,8 @@ function showTab(name,el){
   if(name==="charts")renderCharts();
   if(name==="analytics")renderAnalytics();
 }
+let analyticsFilter = '3m';
+let analyticsCharts = {};
 renderAll();
 
 function openAtt(){
@@ -1218,9 +1220,6 @@ const ANALYTICS_DATA = [
   {w:1, label:"May W1",listings:21,price:1182,rating:4.5,score:60},
   {w:0, label:"Now",listings:ALL_DATA.length,price:Math.round(ALL_DATA.reduce((s,i)=>s+i.price,0)/ALL_DATA.length),rating:4.4,score:Math.round(ALL_DATA.map(i=>calcScore(i)).reduce((a,b)=>a+b,0)/ALL_DATA.length)},
 ];
-
-let analyticsFilter = '3m'; // '1m','3m','6m','all'
-let analyticsCharts = {};
 
 function setAnalyticsFilter(f, el){
   analyticsFilter = f;
