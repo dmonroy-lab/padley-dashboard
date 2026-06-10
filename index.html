@@ -550,6 +550,9 @@ body.light .summary-label{color:#6b7280}
 
 
 
+  <!-- ALL LEYAD ANALYTICS - shown only when "All Leyad" is active -->
+  <div id="all-leyad-analytics" style="display:block;margin-top:20px"></div>
+
   <!-- ALL LEYAD (same tabs, just city filter changes) -->
   <!-- MONTREAL TABS -->
   <div class="tabs" id="tabs-montreal" style="display:none">
@@ -987,6 +990,7 @@ function renderCharts(){
 }
 function renderAll(){
   updateCityCounts();
+  renderAllLeyadAnalytics();
   renderKPIs();
   renderAgent("fernando",FERNANDO,"Fernando Muñoz","FM","#6366f1","4.7","58","5","2010","https://www.facebook.com/marketplace/profile/1764619868/","fernando");
   renderAgent("jeny",JENY,"Jeny Ocaranza","JO","#10b981","4.0","18","9","2010","https://www.facebook.com/marketplace/profile/100001182962462/","jeny");
@@ -1007,6 +1011,8 @@ function switchCity(city, el) {
   document.querySelectorAll(".city-btn").forEach(b => b.classList.remove("active"));
   el.classList.add("active");
 
+  const allAnalytics = document.getElementById("all-leyad-analytics");
+
   // Hide all city tab rows
   ["montreal","prince-albert","edmonton"].forEach(c => {
     const t = document.getElementById("tabs-" + c);
@@ -1014,10 +1020,13 @@ function switchCity(city, el) {
   });
 
   if (city === "all") {
-    // No agent tabs — just KPIs + comparables + platforms for all cities
+    // Show all-leyad analytics, hide agent panes
+    if (allAnalytics) allAnalytics.style.display = "block";
     document.querySelectorAll(".pane").forEach(p => p.classList.remove("active"));
+    renderAllLeyadAnalytics();
   } else {
-    // Show this city's tabs and activate first one
+    // Hide all-leyad analytics, show city agent tabs
+    if (allAnalytics) allAnalytics.style.display = "none";
     const cityTabs = document.getElementById("tabs-" + city);
     if (cityTabs) {
       cityTabs.style.display = "";
@@ -1174,6 +1183,93 @@ function trendBadge(data, key){
   const cls = up ? 'trend-up' : 'trend-down';
   const arrow = up ? '↑' : '↓';
   return `<span class="trend-badge ${cls}">${arrow} ${Math.abs(pct)}%</span>`;
+}
+
+function renderAllLeyadAnalytics() {
+  const el = document.getElementById('all-leyad-analytics');
+  if (!el) return;
+  const data = getFilteredData();
+  const labels = data.map(d=>d.label);
+  const latest = data[data.length-1];
+  const first = data[0];
+
+  function changePct(key){
+    if(data.length<2)return '';
+    const d=((latest[key]-first[key])/first[key]*100);
+    const up=d>=0;
+    return `<span style="background:${up?'rgba(16,185,129,0.15)':'rgba(239,68,68,0.15)'};color:${up?'#34d399':'#f87171'};padding:2px 7px;border-radius:5px;font-size:10px;font-weight:600;margin-left:6px">${up?'↑':'↓'}${Math.abs(d).toFixed(1)}%</span>`;
+  }
+
+  const fl = ({en:['1 Month','3 Months','6 Months','All Time'],fr:['1 Mois','3 Mois','6 Mois','Tout'],es:['1 Mes','3 Meses','6 Meses','Todo']})[LANG]||['1 Month','3 Months','6 Months','All Time'];
+
+  el.innerHTML = `
+    <div class="analytics-hdr">
+      <div>
+        <div class="analytics-title">📈 All Leyad — Company Performance Analytics</div>
+        <div class="analytics-sub">Combined data across all cities · listings, pricing, ratings, score over time.</div>
+      </div>
+      <div class="filter-row">
+        <span style="font-size:11px;color:#9aa3b5;font-weight:500">Filter:</span>
+        <button class="filter-btn ${analyticsFilter==='month'?'active':''}" onclick="setAnalyticsFilterAll('month',this)">${fl[0]}</button>
+        <button class="filter-btn ${analyticsFilter==='3m'?'active':''}" onclick="setAnalyticsFilterAll('3m',this)">${fl[1]}</button>
+        <button class="filter-btn ${analyticsFilter==='6m'?'active':''}" onclick="setAnalyticsFilterAll('6m',this)">${fl[2]}</button>
+        <button class="filter-btn ${analyticsFilter==='all'?'active':''}" onclick="setAnalyticsFilterAll('all',this)">${fl[3]}</button>
+      </div>
+    </div>
+    <div class="analytics-summary">
+      <div style="font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:#9aa3b5;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px">📊 Current Snapshot vs Period Start</div>
+      <div class="summary-grid">
+        <div class="summary-item"><div class="summary-label">Active Listings</div><div class="summary-val" style="color:#3b82f6">${latest.listings}</div>${changePct('listings')}</div>
+        <div class="summary-item"><div class="summary-label">Avg Price</div><div class="summary-val" style="color:#10b981">CA$${latest.price.toLocaleString()}</div>${changePct('price')}</div>
+        <div class="summary-item"><div class="summary-label">Avg Agent Rating</div><div class="summary-val" style="color:#f59e0b">${latest.rating}★</div>${changePct('rating')}</div>
+        <div class="summary-item"><div class="summary-label">Portfolio Score</div><div class="summary-val" style="color:#8b5cf6">${latest.score}/100</div>${changePct('score')}</div>
+      </div>
+    </div>
+    <div class="analytics-grid">
+      <div class="analytics-card"><h3>Active Listings</h3><div class="trend"><span class="trend-val" style="color:#3b82f6">${latest.listings}</span>${trendBadge(data,'listings')}</div><div class="chart-area"><canvas id="all-ac-listings"></canvas></div></div>
+      <div class="analytics-card"><h3>Avg Price / Month</h3><div class="trend"><span class="trend-val" style="color:#10b981">CA$${latest.price.toLocaleString()}</span>${trendBadge(data,'price')}</div><div class="chart-area"><canvas id="all-ac-price"></canvas></div></div>
+      <div class="analytics-card"><h3>Avg Agent Rating</h3><div class="trend"><span class="trend-val" style="color:#f59e0b">${latest.rating} ★</span>${trendBadge(data,'rating')}</div><div class="chart-area"><canvas id="all-ac-rating"></canvas></div></div>
+      <div class="analytics-card"><h3>Portfolio Score</h3><div class="trend"><span class="trend-val" style="color:#8b5cf6">${latest.score}/100</span>${trendBadge(data,'score')}</div><div class="chart-area"><canvas id="all-ac-score"></canvas></div></div>
+    </div>`;
+
+  // Destroy old all-leyad charts
+  if (!window.allLeyadCharts) window.allLeyadCharts = {};
+  ['listings','price','rating','score'].forEach(k=>{
+    if(allLeyadCharts[k]){allLeyadCharts[k].destroy();delete allLeyadCharts[k];}
+  });
+
+  const isLight = document.body.classList.contains('light');
+  const gridColor = isLight ? 'rgba(0,21,79,0.08)' : 'rgba(255,255,255,0.08)';
+  const tickColor = isLight ? '#4a5568' : '#8892a4';
+
+  function makeAllChart(id, label, dataKey, color){
+    const canvas = document.getElementById(id);
+    if(!canvas) return;
+    const vals = data.map(d=>d[dataKey]);
+    const ctx = canvas.getContext('2d');
+    const grad = ctx.createLinearGradient(0,0,0,160);
+    grad.addColorStop(0, color+'55'); grad.addColorStop(1, color+'00');
+    allLeyadCharts[dataKey] = new Chart(canvas, {
+      type:'line',
+      data:{labels, datasets:[{label, data:vals, borderColor:color, borderWidth:2.5, pointBackgroundColor:color, pointRadius:3, pointHoverRadius:5, fill:true, backgroundColor:grad, tension:0.4}]},
+      options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}},
+        scales:{
+          x:{ticks:{color:tickColor,font:{size:9},maxRotation:0},grid:{color:gridColor}},
+          y:{ticks:{color:tickColor,font:{size:9},callback:v=>dataKey==='price'?'$'+v:(dataKey==='rating'?v+'★':v)},grid:{color:gridColor},beginAtZero:false}
+        }}
+    });
+  }
+  makeAllChart('all-ac-listings','Listings','listings','#3b82f6');
+  makeAllChart('all-ac-price','Avg Price','price','#10b981');
+  makeAllChart('all-ac-rating','Rating','rating','#f59e0b');
+  makeAllChart('all-ac-score','Score','score','#8b5cf6');
+}
+
+function setAnalyticsFilterAll(f, el){
+  analyticsFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  renderAllLeyadAnalytics();
 }
 
 function renderAnalytics(){
