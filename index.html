@@ -500,11 +500,6 @@ body.light .summary-label{color:#6b7280}
     </div>
   </div>
 
-  <!-- ALL LEYAD SUMMARY -->
-  <div id="summary-all" class="summary-all active"></div>
-
-  <!-- CITY-SPECIFIC CONTENT -->
-  <div id="city-detail" style="display:none">
     <div class="kpi-row" id="kpi-row"></div>
   <div class="mkt-box">
     <div class="mkt-hdr">📊 <span data-i18n="mkt_title">Real-Time Comparables — FB Marketplace Montréal · May 11, 2026</span></div>
@@ -592,8 +587,6 @@ body.light .summary-label{color:#6b7280}
   <div id="pane-charts" class="pane"></div>
   <div id="pane-analytics" class="pane"></div>
   <div id="pane-marketintel" class="pane"></div>
-  </div><!-- /city-detail -->
-
     <div class="credit-footer">Leyad Analytics · Built by <span>David Monroy</span> · Real-time FB Marketplace data · June 2026</div>
 
 <!-- AI CHAT FAB -->
@@ -994,7 +987,6 @@ function renderCharts(){
 }
 function renderAll(){
   updateCityCounts();
-  renderAllLeyadSummary();
   renderKPIs();
   renderAgent("fernando",FERNANDO,"Fernando Muñoz","FM","#6366f1","4.7","58","5","2010","https://www.facebook.com/marketplace/profile/1764619868/","fernando");
   renderAgent("jeny",JENY,"Jeny Ocaranza","JO","#10b981","4.0","18","9","2010","https://www.facebook.com/marketplace/profile/100001182962462/","jeny");
@@ -1003,101 +995,11 @@ function renderAll(){
   renderRanking();
   if(chartsBuilt)renderCharts();
 }
-function renderAllLeyadSummary() {
-  const el = document.getElementById("summary-all");
-  if (!el) return;
-  const allData = ALL_DATA;
-  const total = allData.length;
-  const avgP  = total ? Math.round(allData.reduce((s,i)=>s+i.price,0)/total) : 0;
-  const agentKeys = [...new Set(allData.map(i=>i.agent_key))];
-  const avgScore  = total ? Math.round(allData.map(i=>calcScore(i)).reduce((a,b)=>a+b,0)/total) : 0;
-
-  const cities = [
-    {key:"montreal",      name:"Montréal",      flag:"🇨🇦", color:"#4D9FFF", agents:["Fernando","Jeny","Kathleen","Oriana"]},
-    {key:"prince-albert", name:"Prince Albert", flag:"🇨🇦", color:"#10b981", agents:[]},
-    {key:"edmonton",      name:"Edmonton",      flag:"🇨🇦", color:"#f59e0b", agents:[]}
-  ];
-
-  const cityCards = cities.map(c => {
-    const cd = getCityData(c.key);
-    const btn = document.getElementById("btn-city-"+c.key);
-    if (!cd.length) {
-      return `<div class="sum-city-card city-coming-soon">
-        <div class="sum-city-badge soon">Coming Soon</div>
-        <div class="sum-city-flag">${c.flag}</div>
-        <div class="sum-city-name">${c.name}</div>
-        <div class="sum-city-sub" style="color:#4b5563">No agents configured yet</div>
-      </div>`;
-    }
-    const cAvg = Math.round(cd.reduce((s,i)=>s+i.price,0)/cd.length);
-    const cScore = Math.round(cd.map(i=>calcScore(i)).reduce((a,b)=>a+b,0)/cd.length);
-    const cAgents = [...new Set(cd.map(i=>i.agent_key))].length;
-    const needAttn = cd.filter(i=>calcScore(i)<55).length;
-    return `<div class="sum-city-card" onclick="switchCity('${c.key}',document.getElementById('btn-city-${c.key}'))">
-      <div class="sum-city-badge" style="background:rgba(77,159,255,.12);border-color:rgba(77,159,255,.3);color:#4D9FFF">Active</div>
-      <div class="sum-city-flag">${c.flag}</div>
-      <div class="sum-city-name">${c.name}</div>
-      <div class="sum-city-sub">${cAgents} agent${cAgents!==1?"s":""} · Click to explore</div>
-      <div class="sum-city-stats">
-        <div><div class="sum-city-stat-val">${cd.length}</div><div class="sum-city-stat-label">Listings</div></div>
-        <div><div class="sum-city-stat-val">$${cAvg.toLocaleString()}</div><div class="sum-city-stat-label">Avg / mo</div></div>
-        <div><div class="sum-city-stat-val">${cScore}</div><div class="sum-city-stat-label">Score</div></div>
-        <div><div class="sum-city-stat-val" style="color:${needAttn>0?"#f59e0b":"#10b981"}">${needAttn}</div><div class="sum-city-stat-label">Need attention</div></div>
-      </div>
-      <div class="sum-city-arrow">View ${c.name} →</div>
-    </div>`;
-  }).join("");
-
-  // Agent overview rows
-  const agentDefs = [
-    {key:"fernando",name:"Fernando Muñoz",  initials:"FM",color:"#6366f1",data:FERNANDO},
-    {key:"jeny",    name:"Jeny Ocaranza",   initials:"JO",color:"#10b981",data:JENY},
-    {key:"kathleen",name:"Kathleen Harvey", initials:"KH",color:"#3b82f6",data:KATHLEEN},
-    {key:"oriana",  name:"Oriana Samboni",  initials:"OS",color:"#ec4899",data:ORIANA}
-  ];
-  const agentRows = agentDefs.map(a => {
-    const cnt = a.data.length;
-    const avg = cnt ? Math.round(a.data.reduce((s,i)=>s+i.price,0)/cnt) : 0;
-    const sc  = cnt ? Math.round(a.data.map(i=>calcScore(i)).reduce((x,y)=>x+y,0)/cnt) : 0;
-    const attn = a.data.filter(i=>calcScore(i)<55).length;
-    return `<div class="summary-agent-row">
-      <div class="sa-name">
-        <div class="sa-avatar" style="background:${a.color}">${a.initials}</div>
-        ${a.name}
-      </div>
-      <div class="sa-stats">
-        <div class="sa-stat"><div class="sa-stat-val">${cnt}</div><div class="sa-stat-label">listings</div></div>
-        <div class="sa-stat"><div class="sa-stat-val">$${avg.toLocaleString()}</div><div class="sa-stat-label">avg/mo</div></div>
-        <div class="sa-stat"><div class="sa-stat-val">${sc}/100</div><div class="sa-stat-label">score</div></div>
-        <div class="sa-stat"><div class="sa-stat-val" style="color:${attn>0?"#f59e0b":"#10b981"}">${attn}</div><div class="sa-stat-label">attention</div></div>
-      </div>
-    </div>`;
-  }).join("");
-
-  el.innerHTML = `
-    <div class="summary-section-title" style="margin-top:20px">🏢 Leyad Portfolio Overview</div>
-    <div class="sum-kpis">
-      <div class="sum-kpi"><div class="sum-kpi-val">${total}</div><div class="sum-kpi-label">Total listings</div></div>
-      <div class="sum-kpi"><div class="sum-kpi-val">$${avgP.toLocaleString()}</div><div class="sum-kpi-label">Avg price / mo</div></div>
-      <div class="sum-kpi"><div class="sum-kpi-val">${agentKeys.length}</div><div class="sum-kpi-label">Active agents</div></div>
-      <div class="sum-kpi"><div class="sum-kpi-val">${avgScore}/100</div><div class="sum-kpi-label">Portfolio score</div></div>
-    </div>
-    <div class="summary-section-title">🌎 Cities</div>
-    <div class="summary-cities-grid">${cityCards}</div>
-    <div class="summary-section-title">👤 Agents</div>
-    <div class="summary-agents-overview">${agentRows}</div>
-  `;
-}
-
 function updateCityCounts() {
-  const cities = ["montreal","prince-albert","edmonton"];
-  cities.forEach(c => {
-    const cd = getCityData(c);
-    const el = document.getElementById("cnt-"+c);
-    if (el) el.textContent = cd.length ? cd.length+" listings" : "";
-  });
   const allEl = document.getElementById("cnt-all");
   if (allEl) allEl.textContent = ALL_DATA.length+" listings";
+  const mEl = document.getElementById("cnt-montreal");
+  if (mEl) { const d=getCityData("montreal"); mEl.textContent=d.length?d.length+" listings":""; }
 }
 
 function switchCity(city, el) {
@@ -1105,35 +1007,27 @@ function switchCity(city, el) {
   document.querySelectorAll(".city-btn").forEach(b => b.classList.remove("active"));
   el.classList.add("active");
 
-  const summaryEl = document.getElementById("summary-all");
-  const detailEl  = document.getElementById("city-detail");
-  const cityTabIds = ["tabs-montreal","tabs-prince-albert","tabs-edmonton"];
+  // Hide all city tab rows
+  ["montreal","prince-albert","edmonton"].forEach(c => {
+    const t = document.getElementById("tabs-" + c);
+    if (t) t.style.display = "none";
+  });
 
   if (city === "all") {
-    // Show summary, hide city detail
-    summaryEl.style.display = "";
-    summaryEl.classList.add("active");
-    detailEl.style.display = "none";
-    renderAllLeyadSummary();
+    // No agent tabs — just KPIs + comparables + platforms for all cities
+    document.querySelectorAll(".pane").forEach(p => p.classList.remove("active"));
   } else {
-    // Hide summary, show city detail
-    summaryEl.style.display = "none";
-    summaryEl.classList.remove("active");
-    detailEl.style.display = "";
-    // Switch tabs
-    cityTabIds.forEach(id => {
-      const t = document.getElementById(id);
-      if (t) t.style.display = "none";
-    });
+    // Show this city's tabs and activate first one
     const cityTabs = document.getElementById("tabs-" + city);
     if (cityTabs) {
       cityTabs.style.display = "";
       const firstTab = cityTabs.querySelector(".tab");
       if (firstTab) firstTab.click();
     }
-    renderKPIs();
-    renderRanking();
   }
+
+  renderKPIs();
+  renderRanking();
   updateCityCounts();
 }
 
