@@ -491,7 +491,7 @@ body.light .summary-label{color:#6b7280}
       </button>
       <button class="city-btn" onclick="switchCity('prince-albert',this)" id="btn-city-prince-albert">
         <span class="city-flag">🇨🇦</span> Prince Albert
-        <span class="city-count city-soon">Coming soon</span>
+        <span class="city-count" id="cnt-prince-albert"></span>
       </button>
       <button class="city-btn" onclick="switchCity('edmonton',this)" id="btn-city-edmonton">
         <span class="city-flag">🇨🇦</span> Edmonton
@@ -566,13 +566,15 @@ body.light .summary-label{color:#6b7280}
     <button class="tab" onclick="showTab('marketintel',this)">🌐 Market Intelligence</button>
   </div>
 
-  <!-- PRINCE ALBERT PLACEHOLDER -->
-  <div id="tabs-prince-albert" style="display:none">
-    <div class="city-empty">
-      <div class="city-empty-icon">🏗️</div>
-      <div class="city-empty-title">Prince Albert — Coming Soon</div>
-      <div class="city-empty-sub">No agents configured for this city yet. Contact David Monroy to add agents.</div>
-    </div>
+  <!-- PRINCE ALBERT TABS -->
+  <div class="tabs" id="tabs-prince-albert" style="display:none">
+    <button class="tab active" onclick="showTab('vinit',this)">🏠 Vinit (4)</button>
+    <button class="tab" onclick="showTab('avi',this)">🏠 Avi (2)</button>
+    <button class="tab" onclick="showTab('abhi',this)">🏠 Abhi (2)</button>
+    <button class="tab" onclick="showTab('leasewith',this)">🏠 LeaseWith (7)</button>
+    <button class="tab" onclick="showTab('ranking',this)">🏆 Top 10 &amp; Worst 10</button>
+    <button class="tab" onclick="showTab('analytics',this)">📈 Analytics</button>
+    <button class="tab" onclick="showTab('marketintel',this)">🌐 Market Intelligence</button>
   </div>
   <!-- EDMONTON PLACEHOLDER -->
   <div id="tabs-edmonton" style="display:none">
@@ -590,6 +592,10 @@ body.light .summary-label{color:#6b7280}
   <div id="pane-charts" class="pane"></div>
   <div id="pane-analytics" class="pane"></div>
   <div id="pane-marketintel" class="pane"></div>
+  <div id="pane-vinit" class="pane"></div>
+  <div id="pane-avi" class="pane"></div>
+  <div id="pane-abhi" class="pane"></div>
+  <div id="pane-leasewith" class="pane"></div>
     <div class="credit-footer">Leyad Analytics · Built by <span>David Monroy</span> · Real-time FB Marketplace data · June 2026</div>
 
 <!-- AI CHAT FAB -->
@@ -635,7 +641,11 @@ function t(k){return T[LANG][k]||T.en[k]||k;}
 function setLang(lang,btn){LANG=lang;document.querySelectorAll(".lang-btn").forEach(b=>b.classList.remove("active"));btn.classList.add("active");document.querySelectorAll("[data-i18n]").forEach(el=>el.innerHTML=t(el.dataset.i18n));renderAll();}
 
 const MKT={0:{avg:975,min:860,max:1195,slo:900,shi:1075,n:14},1:{avg:1095,min:895,max:1295,slo:995,shi:1195,n:18},2:{avg:1370,min:1150,max:1700,slo:1280,shi:1525,n:22},3:{avg:1720,min:1480,max:2000,slo:1600,shi:1950,n:8}};
-const MKT_Z={outremont_1:{avg:1195,min:920,max:1595,slo:1050,shi:1350,n:8},outremont_2:{avg:1390,min:1050,max:1700,slo:1200,shi:1550,n:6},cdn_1:{avg:1150,min:950,max:1400,slo:1050,shi:1300,n:8},cdn_plamondon_2:{avg:1400,min:1200,max:1700,slo:1250,shi:1550,n:7},kirkland_2:{avg:1520,min:1350,max:1750,slo:1400,shi:1650,n:6},cdn_2:{avg:1450,min:1250,max:1700,slo:1350,shi:1600,n:8},montreal_1:{avg:1250,min:1050,max:1500,slo:1150,shi:1400,n:12},longueuil_2:{avg:1390,min:1195,max:1600,slo:1300,shi:1525,n:8},verdun_2:{avg:1420,min:1200,max:1700,slo:1300,shi:1600,n:7},pointe_0:{avg:1000,min:875,max:1150,slo:880,shi:1050,n:4},anjou_1:{avg:1050,min:895,max:1290,slo:950,shi:1150,n:6},plateau_0:{avg:960,min:857,max:1195,slo:900,shi:1075,n:10},plateau_2:{avg:1490,min:1350,max:1700,slo:1400,shi:1625,n:8},granby_2:{avg:1196,min:1150,max:1260,slo:1150,shi:1250,n:5},hochelaga_0:{avg:960,min:850,max:1200,slo:890,shi:1050,n:8}};
+const MKT_Z={
+  // PRINCE ALBERT market averages
+  pa_1:{avg:1221,min:1155,max:1365,slo:1155,shi:1280,n:7},
+  pa_2:{avg:1355,min:1120,max:1490,slo:1290,shi:1455,n:7},
+  pa_3:{avg:1250,min:1250,max:1250,slo:1200,shi:1300,n:1},outremont_1:{avg:1195,min:920,max:1595,slo:1050,shi:1350,n:8},outremont_2:{avg:1390,min:1050,max:1700,slo:1200,shi:1550,n:6},cdn_1:{avg:1150,min:950,max:1400,slo:1050,shi:1300,n:8},cdn_plamondon_2:{avg:1400,min:1200,max:1700,slo:1250,shi:1550,n:7},kirkland_2:{avg:1520,min:1350,max:1750,slo:1400,shi:1650,n:6},cdn_2:{avg:1450,min:1250,max:1700,slo:1350,shi:1600,n:8},montreal_1:{avg:1250,min:1050,max:1500,slo:1150,shi:1400,n:12},longueuil_2:{avg:1390,min:1195,max:1600,slo:1300,shi:1525,n:8},verdun_2:{avg:1420,min:1200,max:1700,slo:1300,shi:1600,n:7},pointe_0:{avg:1000,min:875,max:1150,slo:880,shi:1050,n:4},anjou_1:{avg:1050,min:895,max:1290,slo:950,shi:1150,n:6},plateau_0:{avg:960,min:857,max:1195,slo:900,shi:1075,n:10},plateau_2:{avg:1490,min:1350,max:1700,slo:1400,shi:1625,n:8},granby_2:{avg:1196,min:1150,max:1260,slo:1150,shi:1250,n:5},hochelaga_0:{avg:960,min:850,max:1200,slo:890,shi:1050,n:8}};
 function getRef(beds,zone){return zone&&MKT_Z[zone]?MKT_Z[zone]:MKT[Math.min(beds,3)];}
 
 
@@ -670,6 +680,26 @@ const MI_BED_TYPES = ["studio","1-bed","2-bed","3-bed","4-bed","5-bed","6-bed"];
 const MI_BED_LABELS = {studio:"Studio","1-bed":"1 Chambre","2-bed":"2 Chambres","3-bed":"3 Chambres","4-bed":"4 Chambres","5-bed":"5 Chambres","6-bed":"6 Chambres"};
 
 const COMPS={
+
+  // VINIT — Prince Albert
+  vinit_0:[{id:"901148949618689",price:1155,desc:"1 bed · Prince Albert (South Hill area)"},{id:"887514197633854",price:1155,desc:"1 bed · Prince Albert (South Hill area)"},{id:"4286139491646230",price:1190,desc:"1 bed · 1132 Central Ave, Prince Albert"},{id:"915190018100115",price:1190,desc:"1 bed · Prince Albert"},{id:"1616908532762897",price:1215,desc:"1 bed · 1132 Central Ave, Prince Albert"}],
+  vinit_1:[{id:"1689482188708476",price:1490,desc:"2 bed · Prince Albert downtown"},{id:"1477304230836157",price:1455,desc:"2 bed · 399 32nd St W, Prince Albert"},{id:"3625077684337629",price:1350,desc:"2 bed · Prince Albert"},{id:"26363547823325331",price:1290,desc:"2 bed · Prince Albert"},{id:"29793418543636539",price:1120,desc:"2 bed · Prince Albert"}],
+  vinit_2:[{id:"26363547823325331",price:1290,desc:"2 bed · Prince Albert"},{id:"1477304230836157",price:1455,desc:"2 bed · 399 32nd St W"},{id:"3625077684337629",price:1350,desc:"2 bed · Prince Albert"},{id:"2606842419750650",price:1290,desc:"2 bed · 3030 Dunn Dr"},{id:"29793418543636539",price:1120,desc:"2 bed · Prince Albert"}],
+  vinit_3:[{id:"26363547823325331",price:1290,desc:"2 bed · Prince Albert"},{id:"1689482188708476",price:1490,desc:"2 bed · downtown"},{id:"1477304230836157",price:1455,desc:"2 bed · 399 32nd St W"},{id:"3625077684337629",price:1350,desc:"2 bed · Prince Albert"},{id:"2606842419750650",price:1290,desc:"2 bed · 3030 Dunn Dr"}],
+  // AVI — Prince Albert
+  avi_0:[{id:"1689482188708476",price:1490,desc:"2 bed · Prince Albert downtown"},{id:"1477304230836157",price:1455,desc:"2 bed · 399 32nd St W"},{id:"3625077684337629",price:1350,desc:"2 bed · Prince Albert"},{id:"2606842419750650",price:1290,desc:"2 bed · 3030 Dunn Dr"},{id:"633074193192702",price:1490,desc:"2 bed · Prince Albert"}],
+  avi_1:[{id:"3054523851410988",price:1280,desc:"1 bed · 399 32nd St W"},{id:"4286139491646230",price:1190,desc:"1 bed · 1132 Central Ave"},{id:"915190018100115",price:1190,desc:"1 bed · Prince Albert"},{id:"1616908532762897",price:1215,desc:"1 bed · 1132 Central Ave"},{id:"1663916481689868",price:1365,desc:"1 bed · 2300 2nd Ave W"}],
+  // ABHI — Prince Albert
+  abhi_0:[{id:"26363547823325331",price:1290,desc:"2 bed · Prince Albert"},{id:"1477304230836157",price:1455,desc:"2 bed · 399 32nd St W"},{id:"3625077684337629",price:1350,desc:"2 bed · Prince Albert"},{id:"2606842419750650",price:1290,desc:"2 bed · 3030 Dunn Dr"},{id:"29793418543636539",price:1120,desc:"2 bed · Prince Albert"}],
+  abhi_1:[{id:"3054523851410988",price:1280,desc:"1 bed · 399 32nd St W"},{id:"4286139491646230",price:1190,desc:"1 bed · 1132 Central Ave"},{id:"915190018100115",price:1190,desc:"1 bed · Prince Albert"},{id:"1616908532762897",price:1215,desc:"1 bed · 1132 Central Ave"},{id:"1663916481689868",price:1365,desc:"1 bed · 2300 2nd Ave W"}],
+  // LEASEWITH — Prince Albert
+  leasewith_0:[{id:"26363547823325331",price:1290,desc:"2 bed · Prince Albert"},{id:"1689482188708476",price:1490,desc:"2 bed · downtown"},{id:"3625077684337629",price:1350,desc:"2 bed · Prince Albert"},{id:"2606842419750650",price:1290,desc:"2 bed · 3030 Dunn Dr"},{id:"633074193192702",price:1490,desc:"2 bed · Prince Albert"}],
+  leasewith_1:[{id:"3054523851410988",price:1280,desc:"1 bed · 399 32nd St W"},{id:"901148949618689",price:1155,desc:"1 bed · South Hill area"},{id:"887514197633854",price:1155,desc:"1 bed · South Hill area"},{id:"915190018100115",price:1190,desc:"1 bed · Prince Albert"},{id:"1663916481689868",price:1365,desc:"1 bed · 2300 2nd Ave W"}],
+  leasewith_2:[{id:"26363547823325331",price:1290,desc:"2 bed · Prince Albert"},{id:"1689482188708476",price:1490,desc:"2 bed · downtown"},{id:"1477304230836157",price:1455,desc:"2 bed · 399 32nd St W"},{id:"2606842419750650",price:1290,desc:"2 bed · 3030 Dunn Dr"},{id:"29793418543636539",price:1120,desc:"2 bed · Prince Albert"}],
+  leasewith_3:[{id:"3054523851410988",price:1280,desc:"1 bed · 399 32nd St W"},{id:"901148949618689",price:1155,desc:"1 bed · South Hill area"},{id:"4286139491646230",price:1190,desc:"1 bed · 1132 Central Ave"},{id:"915190018100115",price:1190,desc:"1 bed · Prince Albert"},{id:"1616908532762897",price:1215,desc:"1 bed · 1132 Central Ave"}],
+  leasewith_4:[{id:"3054523851410988",price:1280,desc:"1 bed · 399 32nd St W"},{id:"901148949618689",price:1155,desc:"1 bed · South Hill area"},{id:"887514197633854",price:1155,desc:"1 bed · South Hill area"},{id:"1616908532762897",price:1215,desc:"1 bed · 1132 Central Ave"},{id:"1663916481689868",price:1365,desc:"1 bed · 2300 2nd Ave W"}],
+  leasewith_5:[{id:"3054523851410988",price:1280,desc:"1 bed · 399 32nd St W"},{id:"901148949618689",price:1155,desc:"1 bed · South Hill area"},{id:"887514197633854",price:1155,desc:"1 bed · South Hill area"},{id:"4286139491646230",price:1190,desc:"1 bed · 1132 Central Ave"},{id:"1663916481689868",price:1365,desc:"1 bed · 2300 2nd Ave W"}],
+  leasewith_6:[{id:"26363547823325331",price:1290,desc:"2 bed · Prince Albert"},{id:"1477304230836157",price:1455,desc:"2 bed · 399 32nd St W"},{id:"3625077684337629",price:1350,desc:"2 bed · Prince Albert"},{id:"2606842419750650",price:1290,desc:"2 bed · 3030 Dunn Dr"},{id:"633074193192702",price:1490,desc:"2 bed · Prince Albert"}],
   // FERNANDO — updated June 1, 2026
   fernando_0:[{id:"2187227072078780",price:1015,desc:"1 bed · St-Jean-sur-Richelieu"},{id:"1982233582499884",price:1095,desc:"1 bed · St-Jean area"},{id:"4472102216361059",price:950,desc:"1 bed · St-Jean-sur-Richelieu"},{id:"597295911506305",price:970,desc:"1 bed · St-Jean area"},{id:"989551803486769",price:1000,desc:"1 bed · St-Jean-sur-Richelieu"}],
   fernando_1:[{id:"1413844743785487",price:1280,desc:"2 bed · Hochelaga area"},{id:"2021207379273939",price:1250,desc:"2 bed · Hochelaga area"},{id:"1319648489559089",price:1300,desc:"2 bed · Hochelaga/Rosemont"},{id:"35467536479561282",price:1150,desc:"2 bed · H1V area"},{id:"812079261725175",price:1200,desc:"2 bed · Hochelaga"}],
@@ -924,9 +954,35 @@ const ORIANA=[
 ];
 
 // City mapping
-const CITY_MAP = {
+const 
+// ─── PRINCE ALBERT AGENTS ───
+const VINIT = [
+  {id:"3054523851410988",price:1280,beds:1,photos:6,desc_ok:true,pets:true,zone:"pa_1",loc:"399 32nd St W, Prince Albert SK S6V 5Z3",desc:"1 bed next to South Hill mall. Elevator. Balcony. Walk-in closet. Dog/cat friendly. 1yr lease."},
+  {id:"2606842419750650",price:1290,beds:2,photos:4,desc_ok:true,pets:true,zone:"pa_2",loc:"3030 Dunn Dr, Prince Albert SK S6V 7E7",desc:"Spacious 2 bed. Dog/cat friendly. AC. Balcony. 1 year lease. Heating available."},
+  {id:"633074193192702", price:1490,beds:2,photos:5,desc_ok:true,pets:true,zone:"pa_2",loc:"Prince Albert, SK",desc:"Perfect location for family. In-unit laundry. AC. Dishwasher. Walk-in closet. Balcony."},
+  {id:"29793418543636539",price:1120,beds:2,photos:4,desc_ok:true,pets:true,zone:"pa_2",loc:"Prince Albert, SK",desc:"Apartment for rent. Dog/cat friendly. Fireplace. Dishwasher. Basement. Ceiling fan."},
+];
+const AVI = [
+  {id:"26363547823325331",price:1290,beds:2,photos:3,desc_ok:true,pets:false,zone:"pa_2",loc:"Prince Albert, SK",desc:"Best and affordable apartment. One car park included. Heat and water included."},
+  {id:"901148949618689", price:1155,beds:1,photos:4,desc_ok:true,pets:false,zone:"pa_1",loc:"Prince Albert, SK (South Hill area)",desc:"Newly renovated 1 bedroom. New flooring. New appliances. One car park. Heat & water included."},
+];
+const ABHI = [
+  {id:"1689482188708476",price:1490,beds:2,photos:3,desc_ok:true,pets:false,zone:"pa_2",loc:"1132 Central Ave, Prince Albert SK",desc:"Apartment for rent. Downtown location. Wingspan Properties. Mon–Fri 9am–5pm."},
+  {id:"887514197633854", price:1155,beds:1,photos:4,desc_ok:true,pets:false,zone:"pa_1",loc:"Prince Albert, SK (South Hill area)",desc:"Newly renovated studio next to South Hill mall. New flooring & appliances. Heat & water included."},
+];
+const LEASEWITH = [
+  {id:"1477304230836157",price:1455,beds:2,photos:5,desc_ok:true,pets:true, zone:"pa_2",loc:"399 32nd St W, Prince Albert SK S6V 5Z3",desc:"Wingspan Properties. Dog/cat friendly. Elevator. Secured entry. Balcony. Walk-in closet."},
+  {id:"4286139491646230",price:1190,beds:1,photos:3,desc_ok:true,pets:false,zone:"pa_1",loc:"1132 Central Ave, Prince Albert SK S6V 4V6",desc:"Wingspan Properties. 1132 Central Ave office. Contact 306-314-0214."},
+  {id:"3625077684337629",price:1350,beds:2,photos:3,desc_ok:true,pets:false,zone:"pa_2",loc:"Prince Albert, SK",desc:"Wingspan Properties. Apartment for rent. Contact for details."},
+  {id:"1663916481689868",price:1365,beds:1,photos:4,desc_ok:true,pets:false,zone:"pa_1",loc:"2300 2nd Ave W, Prince Albert SK S6V 5C7",desc:"Wingspan Properties. 2300 2nd Ave W. 1 bed."},
+  {id:"915190018100115", price:1190,beds:1,photos:3,desc_ok:true,pets:false,zone:"pa_1",loc:"Prince Albert, SK",desc:"Wingspan Properties. 1132 Central Ave, Prince Albert SK S6V 4V6."},
+  {id:"1616908532762897",price:1215,beds:1,photos:3,desc_ok:true,pets:false,zone:"pa_1",loc:"Prince Albert, SK",desc:"Wingspan Properties. Location: 1132 Central Ave, Prince Albert SK."},
+  {id:"910197502004234", price:1250,beds:3,photos:4,desc_ok:true,pets:false,zone:"pa_3",loc:"1401 28th St E, Prince Albert SK S6V 6Z8",desc:"3 bed apartment. 1401 28th St E. Wingspan Properties."},
+];
+
+CITY_MAP = {
   montreal: ["fernando","jeny","kathleen","oriana"],
-  "prince-albert": [],
+  "prince-albert": ["vinit","avi","abhi","leasewith"],
   edmonton: []
 };
 let ACTIVE_CITY = "all"; // "all" | "montreal" | "prince-albert" | "edmonton"
@@ -948,7 +1004,7 @@ function getCityAgents(city) {
   return result;
 }
 
-const ALL_DATA=[...FERNANDO.map(i=>({...i,agent:"Fernando",agentColor:"#6366f1",agent_key:"fernando"})),...JENY.map(i=>({...i,agent:"Jeny",agentColor:"#10b981",agent_key:"jeny"})),...KATHLEEN.map(i=>({...i,agent:"Kathleen",agentColor:"#f59e0b",agent_key:"kathleen"})),...ORIANA.map(i=>({...i,agent:"Oriana",agentColor:"#ec4899",agent_key:"oriana"}))];
+const ALL_DATA=[...FERNANDO.map(i=>({...i,agent:"Fernando",agentColor:"#6366f1",agent_key:"fernando"})),...JENY.map(i=>({...i,agent:"Jeny",agentColor:"#10b981",agent_key:"jeny"})),...KATHLEEN.map(i=>({...i,agent:"Kathleen",agentColor:"#f59e0b",agent_key:"kathleen"})),...ORIANA.map(i=>({...i,agent:"Oriana",agentColor:"#ec4899",agent_key:"oriana"})),...VINIT.map(i=>({...i,agent:"Vinit",agentColor:"#8b5cf6",agent_key:"vinit"})),...AVI.map(i=>({...i,agent:"Avi",agentColor:"#06b6d4",agent_key:"avi"})),...ABHI.map(i=>({...i,agent:"Abhi",agentColor:"#f97316",agent_key:"abhi"})),...LEASEWITH.map(i=>({...i,agent:"LeaseWith",agentColor:"#84cc16",agent_key:"leasewith"}))];
 
 function renderKPIs(){
   const cityData = getCityData(ACTIVE_CITY);
@@ -992,6 +1048,10 @@ function renderAll(){
   updateCityCounts();
   renderAllLeyadAnalytics();
   renderKPIs();
+  renderAgent("vinit",VINIT,"Vinit Leasing","VL","#8b5cf6","4.2","32","4","2024","https://www.facebook.com/marketplace/profile/61575700168800/","vinit");
+  renderAgent("avi",AVI,"Avi Leasing","AL","#06b6d4","4.0","18","2","2024","https://www.facebook.com/marketplace/profile/61572162310599/","avi");
+  renderAgent("abhi",ABHI,"Abhi Abhi","AA","#f97316","4.1","22","2","2024","https://www.facebook.com/marketplace/profile/100062298857231/","abhi");
+  renderAgent("leasewith",LEASEWITH,"LeaseWith Fenil","LF","#84cc16","4.3","45","7","2024","https://www.facebook.com/marketplace/profile/61579577724365/","leasewith");
   renderAgent("fernando",FERNANDO,"Fernando Muñoz","FM","#6366f1","4.7","58","5","2010","https://www.facebook.com/marketplace/profile/1764619868/","fernando");
   renderAgent("jeny",JENY,"Jeny Ocaranza","JO","#10b981","4.0","18","9","2010","https://www.facebook.com/marketplace/profile/100001182962462/","jeny");
   renderAgent("kathleen",KATHLEEN,"Kathleen Harvey","KH","#f59e0b","3.7","17","5","2007","https://www.facebook.com/marketplace/profile/658666244/","kathleen");
@@ -1004,6 +1064,8 @@ function updateCityCounts() {
   if (allEl) allEl.textContent = ALL_DATA.length+" listings";
   const mEl = document.getElementById("cnt-montreal");
   if (mEl) { const d=getCityData("montreal"); mEl.textContent=d.length?d.length+" listings":""; }
+  const paEl = document.getElementById("cnt-prince-albert");
+  if (paEl) { const d=getCityData("prince-albert"); paEl.textContent=d.length?d.length+" listings":""; }
 }
 
 function switchCity(city, el) {
