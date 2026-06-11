@@ -495,7 +495,7 @@ body.light .summary-label{color:#6b7280}
       </button>
       <button class="city-btn" onclick="switchCity('edmonton',this)" id="btn-city-edmonton">
         <span class="city-flag">🇨🇦</span> Edmonton
-        <span class="city-count" id="cnt-edmonton"></span>
+        <span class="city-count city-soon">Coming soon</span>
       </button>
     </div>
   </div>
@@ -556,10 +556,10 @@ body.light .summary-label{color:#6b7280}
   <!-- ALL LEYAD (same tabs, just city filter changes) -->
   <!-- MONTREAL TABS -->
   <div class="tabs" id="tabs-montreal" style="display:none">
-    <button class="tab active" onclick="showTab('fernando',this)">🏠 Fernando (6)</button>
-    <button class="tab" onclick="showTab('jeny',this)">🏠 Jeny (12)</button>
-    <button class="tab" onclick="showTab('kathleen',this)">🏠 Kathleen (4)</button>
-    <button class="tab" onclick="showTab('oriana',this)">🏠 Oriana (12)</button>
+    <button class="tab active" onclick="showTab('fernando',this)">🏠 Fernando (5)</button>
+    <button class="tab" onclick="showTab('jeny',this)">🏠 Jeny (9)</button>
+    <button class="tab" onclick="showTab('kathleen',this)">🏠 Kathleen (6)</button>
+    <button class="tab" onclick="showTab('oriana',this)">🏠 Oriana (11)</button>
     <button class="tab" onclick="showTab('ranking',this)">🏆 Top 10 &amp; Worst 10</button>
     <button class="tab" onclick="showTab('charts',this)">📊 Charts</button>
     <button class="tab" onclick="showTab('analytics',this)">📈 Company Analytics</button>
@@ -576,7 +576,13 @@ body.light .summary-label{color:#6b7280}
     <button class="tab" onclick="showTab('analytics',this)">📈 Analytics</button>
     <button class="tab" onclick="showTab('marketintel',this)">🌐 Market Intelligence</button>
   </div>
-  <div id="tabs-edmonton" style="display:none"></div>
+  <!-- EDMONTON TABS -->
+  <div class="tabs" id="tabs-edmonton" style="display:none">
+    <button class="tab active" onclick="showTab('safiya',this)">🏠 Safiya Ali (12)</button>
+    <button class="tab" onclick="showTab('ranking',this)">🏆 Top 10 &amp; Worst 10</button>
+    <button class="tab" onclick="showTab('analytics',this)">📈 Analytics</button>
+    <button class="tab" onclick="showTab('marketintel',this)">🌐 Market Intelligence</button>
+  </div>
   <div id="pane-fernando" class="pane active"></div>
   <div id="pane-jeny" class="pane"></div>
   <div id="pane-kathleen" class="pane"></div>
@@ -589,6 +595,7 @@ body.light .summary-label{color:#6b7280}
   <div id="pane-avi" class="pane"></div>
   <div id="pane-abhi" class="pane"></div>
   <div id="pane-leasewith" class="pane"></div>
+  <div id="pane-safiya" class="pane"></div>
     <div class="credit-footer">Leyad Analytics · Built by <span>David Monroy</span> · Real-time FB Marketplace data · June 2026</div>
 
 <!-- AI CHAT FAB -->
@@ -638,7 +645,11 @@ const MKT_Z={
   // PRINCE ALBERT market averages
   pa_1:{avg:1221,min:1155,max:1365,slo:1155,shi:1280,n:7},
   pa_2:{avg:1355,min:1120,max:1490,slo:1290,shi:1455,n:7},
-  pa_3:{avg:1250,min:1250,max:1250,slo:1200,shi:1300,n:1},outremont_1:{avg:1195,min:920,max:1595,slo:1050,shi:1350,n:8},outremont_2:{avg:1390,min:1050,max:1700,slo:1200,shi:1550,n:6},cdn_1:{avg:1150,min:950,max:1400,slo:1050,shi:1300,n:8},cdn_plamondon_2:{avg:1400,min:1200,max:1700,slo:1250,shi:1550,n:7},kirkland_2:{avg:1520,min:1350,max:1750,slo:1400,shi:1650,n:6},cdn_2:{avg:1450,min:1250,max:1700,slo:1350,shi:1600,n:8},montreal_1:{avg:1250,min:1050,max:1500,slo:1150,shi:1400,n:12},longueuil_2:{avg:1390,min:1195,max:1600,slo:1300,shi:1525,n:8},verdun_2:{avg:1420,min:1200,max:1700,slo:1300,shi:1600,n:7},pointe_0:{avg:1000,min:875,max:1150,slo:880,shi:1050,n:4},anjou_1:{avg:1050,min:895,max:1290,slo:950,shi:1150,n:6},plateau_0:{avg:960,min:857,max:1195,slo:900,shi:1075,n:10},plateau_2:{avg:1490,min:1350,max:1700,slo:1400,shi:1625,n:8},granby_2:{avg:1196,min:1150,max:1260,slo:1150,shi:1250,n:5},hochelaga_0:{avg:960,min:850,max:1200,slo:890,shi:1050,n:8}};
+  pa_3:{avg:1250,min:1250,max:1250,slo:1200,shi:1300,n:1},outremont_1:{avg:1195,min:920,max:1595,slo:1050,shi:1350,n:8},outremont_2:{avg:1390,min:1050,max:1700,slo:1200,shi:1550,n:6},cdn_1:{avg:1150,min:950,max:1400,slo:1050,shi:1300,n:8},cdn_plamondon_2:{avg:1400,min:1200,max:1700,slo:1250,shi:1550,n:7},kirkland_2:{avg:1520,min:1350,max:1750,slo:1400,shi:1650,n:6},cdn_2:{avg:1450,min:1250,max:1700,slo:1350,shi:1600,n:8},montreal_1:{avg:1250,min:1050,max:1500,slo:1150,shi:1400,n:12},longueuil_2:{avg:1390,min:1195,max:1600,slo:1300,shi:1525,n:8},verdun_2:{avg:1420,min:1200,max:1700,slo:1300,shi:1600,n:7},pointe_0:{avg:1000,min:875,max:1150,slo:880,shi:1050,n:4},anjou_1:{avg:1050,min:895,max:1290,slo:950,shi:1150,n:6},plateau_0:{avg:960,min:857,max:1195,slo:900,shi:1075,n:10},plateau_2:{avg:1490,min:1350,max:1700,slo:1400,shi:1625,n:8},granby_2:{avg:1196,min:1150,max:1260,slo:1150,shi:1250,n:5},hochelaga_0:{avg:960,min:850,max:1200,slo:890,shi:1050,n:8},
+  // EDMONTON market averages
+  yeg_0:{avg:1020,min:850,max:1200,slo:950,shi:1095,n:6},
+  yeg_1:{avg:1180,min:1050,max:1350,slo:1100,shi:1250,n:10},
+  yeg_2:{avg:1295,min:1150,max:1500,slo:1200,shi:1375,n:12}};
 function getRef(beds,zone){return zone&&MKT_Z[zone]?MKT_Z[zone]:MKT[Math.min(beds,3)];}
 
 
@@ -689,9 +700,9 @@ const COMPS={
   leasewith_0:[{id:"26363547823325331",price:1290,desc:"2 bed · Prince Albert"},{id:"1689482188708476",price:1490,desc:"2 bed · downtown"},{id:"3625077684337629",price:1350,desc:"2 bed · Prince Albert"},{id:"2606842419750650",price:1290,desc:"2 bed · 3030 Dunn Dr"},{id:"633074193192702",price:1490,desc:"2 bed · Prince Albert"}],
   leasewith_1:[{id:"3054523851410988",price:1280,desc:"1 bed · 399 32nd St W"},{id:"901148949618689",price:1155,desc:"1 bed · South Hill area"},{id:"887514197633854",price:1155,desc:"1 bed · South Hill area"},{id:"915190018100115",price:1190,desc:"1 bed · Prince Albert"},{id:"1663916481689868",price:1365,desc:"1 bed · 2300 2nd Ave W"}],
   leasewith_2:[{id:"26363547823325331",price:1290,desc:"2 bed · Prince Albert"},{id:"1689482188708476",price:1490,desc:"2 bed · downtown"},{id:"1477304230836157",price:1455,desc:"2 bed · 399 32nd St W"},{id:"2606842419750650",price:1290,desc:"2 bed · 3030 Dunn Dr"},{id:"29793418543636539",price:1120,desc:"2 bed · Prince Albert"}],
-  leasewith_3:[{id:"3054523851410988",price:1280,desc:"1 bed · 399 32nd St W"},{id:"901148949618689",price:1155,desc:"1 bed · South Hill area"},{id:"4286139491646230",price:1190,desc:"1 bed · 1132 Central Ave"},{id:"915190018100115",price:1190,desc:"1 bed · Prince Albert"},{id:"1616908532762897",price:1215,desc:"1 bed · 1132 Central Ave"}],
+  leasewith_3:[{id:"3054523851410988",price:1280,desc:"1 bed · 399 32nd St W"},{id:"901148949618689",price:1155,desc:"1 bed · South Hill area"},{id:"1842045623843093",price:1190,desc:"1 bed · 33 River St E"},{id:"915190018100115",price:1190,desc:"1 bed · Prince Albert"},{id:"1616908532762897",price:1215,desc:"1 bed · 1132 Central Ave"}],
   leasewith_4:[{id:"3054523851410988",price:1280,desc:"1 bed · 399 32nd St W"},{id:"901148949618689",price:1155,desc:"1 bed · South Hill area"},{id:"887514197633854",price:1155,desc:"1 bed · South Hill area"},{id:"1616908532762897",price:1215,desc:"1 bed · 1132 Central Ave"},{id:"1663916481689868",price:1365,desc:"1 bed · 2300 2nd Ave W"}],
-  leasewith_5:[{id:"3054523851410988",price:1280,desc:"1 bed · 399 32nd St W"},{id:"901148949618689",price:1155,desc:"1 bed · South Hill area"},{id:"887514197633854",price:1155,desc:"1 bed · South Hill area"},{id:"4286139491646230",price:1190,desc:"1 bed · 1132 Central Ave"},{id:"1663916481689868",price:1365,desc:"1 bed · 2300 2nd Ave W"}],
+  leasewith_5:[{id:"3054523851410988",price:1280,desc:"1 bed · 399 32nd St W"},{id:"901148949618689",price:1155,desc:"1 bed · South Hill area"},{id:"887514197633854",price:1155,desc:"1 bed · South Hill area"},{id:"1842045623843093",price:1190,desc:"1 bed · 33 River St E"},{id:"1663916481689868",price:1365,desc:"1 bed · 2300 2nd Ave W"}],
   leasewith_6:[{id:"26363547823325331",price:1290,desc:"2 bed · Prince Albert"},{id:"1477304230836157",price:1455,desc:"2 bed · 399 32nd St W"},{id:"3625077684337629",price:1350,desc:"2 bed · Prince Albert"},{id:"2606842419750650",price:1290,desc:"2 bed · 3030 Dunn Dr"},{id:"633074193192702",price:1490,desc:"2 bed · Prince Albert"}],
   // FERNANDO — updated June 1, 2026
   fernando_0:[{id:"2187227072078780",price:1015,desc:"1 bed · St-Jean-sur-Richelieu"},{id:"1982233582499884",price:1095,desc:"1 bed · St-Jean area"},{id:"4472102216361059",price:950,desc:"1 bed · St-Jean-sur-Richelieu"},{id:"597295911506305",price:970,desc:"1 bed · St-Jean area"},{id:"989551803486769",price:1000,desc:"1 bed · St-Jean-sur-Richelieu"}],
@@ -729,12 +740,24 @@ const COMPS={
   oriana_5:[{id:"2145618059345686",price:1100,desc:"1 bed · Plateau/Rosemont"},{id:"1041993035163944",price:965,desc:"1 bed · Plateau active"},{id:"1615361739534230",price:1020,desc:"1 bed · Rosemont area"},{id:"1337514244921403",price:950,desc:"1 bed · Rosemont active"},{id:"2252831575459743",price:1100,desc:"1 bed · Plateau"}],
   oriana_6:[{id:"1854213255211491",price:1380,desc:"2 bed · Rosemont/Plateau active"},{id:"1496694655331445",price:1295,desc:"2 bed · Rosemont area"},{id:"2251421432293592",price:1273,desc:"2 bed · Rosemont/Plateau"},{id:"1751217852525800",price:1550,desc:"2 bed · Plateau"},{id:"1492559009008320",price:1430,desc:"2 bed · Rosemont active"}],
   oriana_7:[{id:"1041993035163944",price:965,desc:"Studio · Plateau active"},{id:"1615361739534230",price:1020,desc:"Studio · Rosemont/Plateau"},{id:"1337514244921403",price:950,desc:"Studio · Rosemont active"},{id:"1343891087621906",price:945,desc:"Studio · Plateau area"},{id:"2252831575459743",price:1100,desc:"Studio · Plateau"}],
-  oriana_12:[{id:"1041993035163944",price:965,desc:"Studio · Plateau active"},{id:"1615361739534230",price:1020,desc:"Studio · Plateau/Rosemont"},{id:"2252831575459743",price:1100,desc:"Studio · Plateau area"},{id:"1337514244921403",price:950,desc:"Studio · Rosemont active"},{id:"1343891087621906",price:945,desc:"Studio · Plateau area"}],
-  kathleen_4:[{id:"1320683976689040",price:1269,desc:"2 bed CDN/Plamondon active"},{id:"833285806178161",price:1295,desc:"2 bed CDN area"},{id:"1747261136642725",price:1150,desc:"2 bed CDN/Plamondon"},{id:"2262412070957439",price:1090,desc:"2 bed CDN area"},{id:"1690733308839719",price:1150,desc:"2 bed CDN active"}],
-  oriana_8:[{id:"1536312595167412",price:1595,desc:"1 bed Outremont area"},{id:"2136493617128540",price:1195,desc:"1 bed Outremont/Mile-End"},{id:"2168819030537031",price:1195,desc:"1 bed Mile-End area"},{id:"1519428872870285",price:995,desc:"1 bed Outremont active"},{id:"1694159655251945",price:1195,desc:"1 bed Outremont"}],
-  oriana_9:[{id:"1536312595167412",price:1595,desc:"2 bed Outremont area"},{id:"833285806178161",price:1295,desc:"2 bed CDN/Outremont"},{id:"1747261136642725",price:1150,desc:"2 bed CDN area"},{id:"2168819030537031",price:1195,desc:"2 bed Mile-End active"},{id:"1320683976689040",price:1269,desc:"2 bed CDN/Outremont"}],
-  oriana_10:[{id:"1041993035163944",price:965,desc:"1 bed CDN active"},{id:"1615361739534230",price:1020,desc:"1 bed CDN/Plateau"},{id:"1337514244921403",price:950,desc:"1 bed CDN area"},{id:"2262412070957439",price:1090,desc:"1 bed CDN active"},{id:"1690733308839719",price:1150,desc:"1 bed CDN/Plamondon"}],
-  oriana_11:[{id:"1320683976689040",price:1269,desc:"2 bed CDN active"},{id:"833285806178161",price:1295,desc:"2 bed CDN area"},{id:"1747261136642725",price:1150,desc:"2 bed CDN/Plamondon"},{id:"2262412070957439",price:1090,desc:"2 bed CDN active"},{id:"1690733308839719",price:1150,desc:"2 bed CDN area"}]
+  oriana_8:[{id:"1536312595167412",price:1595,desc:"2 bed Outremont area"},{id:"833285806178161",price:1295,desc:"2 bed CDN area"},{id:"1747261136642725",price:1150,desc:"2 bed CDN area"},{id:"1320683976689040",price:1269,desc:"2 bed CDN/Plamondon"},{id:"1690733308839719",price:1150,desc:"2 bed CDN active"}],
+  oriana_9:[{id:"1854213255211491",price:1380,desc:"2 bed · Rosemont active"},{id:"1496694655331445",price:1295,desc:"2 bed · Rosemont area"},{id:"2251421432293592",price:1273,desc:"2 bed · Rosemont/Plateau"},{id:"1751217852525800",price:1550,desc:"2 bed · Plateau"},{id:"1492559009008320",price:1430,desc:"2 bed · Rosemont active"}],
+  oriana_10:[{id:"1854213255211491",price:1380,desc:"2 bed · Rosemont active"},{id:"1496694655331445",price:1295,desc:"2 bed · Rosemont area"},{id:"2251421432293592",price:1273,desc:"2 bed · Rosemont/Plateau"},{id:"1622021245743292",price:1350,desc:"2 bed · Rosemont/H2E"},{id:"1492559009008320",price:1430,desc:"2 bed · Rosemont active"}],
+  kathleen_4:[{id:"2417651825377376",price:1395,desc:"2 bed · Longueuil active"},{id:"1635011634466277",price:1300,desc:"2 bed · Longueuil area"},{id:"1854213255211491",price:1380,desc:"2 bed · Longueuil active"},{id:"1706717364079024",price:1191,desc:"2 bed · Longueuil"},{id:"1283754646584083",price:1400,desc:"2 bed · Longueuil"}],
+  kathleen_5:[{id:"2187227072078780",price:1015,desc:"1 bed · St-Jean-sur-Richelieu"},{id:"1982233582499884",price:1095,desc:"1 bed · St-Jean area"},{id:"4472102216361059",price:950,desc:"1 bed · St-Jean-sur-Richelieu"},{id:"597295911506305",price:970,desc:"1 bed · St-Jean area"},{id:"989551803486769",price:1000,desc:"1 bed · St-Jean-sur-Richelieu"}],
+  // EDMONTON — Safiya Ali
+  safiya_0:[{id:"1707985713723016",price:1375,desc:"2 bed · 10707 106 St NW Edmonton"},{id:"987355700366540",price:1250,desc:"2 bed · 11835 89 St NW"},{id:"1794521644894108",price:1295,desc:"2 bed · 11835 89 St (B)"},{id:"26607311672302353",price:1250,desc:"2 bed · 11835 89 St (C)"},{id:"1582216172984187",price:1350,desc:"2 bed · 10945 84 St (B)"}],
+  safiya_1:[{id:"1854146668875521",price:1250,desc:"2 bed · 10945 84 St NW"},{id:"987355700366540",price:1250,desc:"2 bed · 11835 89 St NW"},{id:"1794521644894108",price:1295,desc:"2 bed · 11835 89 St (B)"},{id:"26607311672302353",price:1250,desc:"2 bed · 11835 89 St (C)"},{id:"1582216172984187",price:1350,desc:"2 bed · 10945 84 St (B)"}],
+  safiya_2:[{id:"1495356855374967",price:1150,desc:"1 bed · 11045 83 St NW"},{id:"2884733771888348",price:1250,desc:"1 bed · Edmonton NW"},{id:"2424573657971273",price:1125,desc:"1 bed · Edmonton South"},{id:"1020147234035102",price:1195,desc:"1 bed · 10707 106 St NW"},{id:"1026993743113953",price:1095,desc:"Studio · Edmonton ref"}],
+  safiya_3:[{id:"997684436313848",price:950,desc:"Studio · 11835 89 St NW"},{id:"1020147234035102",price:1195,desc:"1 bed · 10707 106 St NW"},{id:"1495356855374967",price:1150,desc:"1 bed · 11045 83 St NW"},{id:"2424573657971273",price:1125,desc:"1 bed · Edmonton South"},{id:"2884733771888348",price:1250,desc:"1 bed · Edmonton NW"}],
+  safiya_4:[{id:"1026993743113953",price:1095,desc:"Studio · Edmonton"},{id:"1020147234035102",price:1195,desc:"1 bed · 10707 106 St NW"},{id:"1495356855374967",price:1150,desc:"1 bed · 11045 83 St NW"},{id:"2424573657971273",price:1125,desc:"1 bed · Edmonton South"},{id:"2884733771888348",price:1250,desc:"1 bed · Edmonton NW"}],
+  safiya_5:[{id:"1854146668875521",price:1250,desc:"2 bed · 10945 84 St NW"},{id:"1707985713723016",price:1375,desc:"2 bed · 10707 106 St NW"},{id:"1794521644894108",price:1295,desc:"2 bed · 11835 89 St (B)"},{id:"26607311672302353",price:1250,desc:"2 bed · 11835 89 St (C)"},{id:"1582216172984187",price:1350,desc:"2 bed · 10945 84 St (B)"}],
+  safiya_6:[{id:"1020147234035102",price:1195,desc:"1 bed · 10707 106 St NW"},{id:"2884733771888348",price:1250,desc:"1 bed · Edmonton NW"},{id:"2424573657971273",price:1125,desc:"1 bed · Edmonton South"},{id:"1026993743113953",price:1095,desc:"Studio · Edmonton ref"},{id:"997684436313848",price:950,desc:"Studio · 89 St ref"}],
+  safiya_7:[{id:"1854146668875521",price:1250,desc:"2 bed · 10945 84 St NW"},{id:"1707985713723016",price:1375,desc:"2 bed · 10707 106 St NW"},{id:"987355700366540",price:1250,desc:"2 bed · 11835 89 St NW"},{id:"26607311672302353",price:1250,desc:"2 bed · 11835 89 St (C)"},{id:"1582216172984187",price:1350,desc:"2 bed · 10945 84 St (B)"}],
+  safiya_8:[{id:"1854146668875521",price:1250,desc:"2 bed · 10945 84 St NW"},{id:"1707985713723016",price:1375,desc:"2 bed · 10707 106 St NW"},{id:"987355700366540",price:1250,desc:"2 bed · 11835 89 St NW"},{id:"1794521644894108",price:1295,desc:"2 bed · 11835 89 St (B)"},{id:"1582216172984187",price:1350,desc:"2 bed · 10945 84 St (B)"}],
+  safiya_9:[{id:"1020147234035102",price:1195,desc:"1 bed · 10707 106 St NW"},{id:"1495356855374967",price:1150,desc:"1 bed · 11045 83 St NW"},{id:"2424573657971273",price:1125,desc:"1 bed · Edmonton South"},{id:"1026993743113953",price:1095,desc:"Studio · Edmonton ref"},{id:"997684436313848",price:950,desc:"Studio · 89 St ref"}],
+  safiya_10:[{id:"1020147234035102",price:1195,desc:"1 bed · 10707 106 St NW"},{id:"1495356855374967",price:1150,desc:"1 bed · 11045 83 St NW"},{id:"2884733771888348",price:1250,desc:"1 bed · Edmonton NW"},{id:"1026993743113953",price:1095,desc:"Studio · Edmonton ref"},{id:"997684436313848",price:950,desc:"Studio · 89 St ref"}],
+  safiya_11:[{id:"1854146668875521",price:1250,desc:"2 bed · 10945 84 St NW"},{id:"1707985713723016",price:1375,desc:"2 bed · 10707 106 St NW"},{id:"987355700366540",price:1250,desc:"2 bed · 11835 89 St NW"},{id:"1794521644894108",price:1295,desc:"2 bed · 11835 89 St (B)"},{id:"26607311672302353",price:1250,desc:"2 bed · 11835 89 St (C)"}]
 };;
 
 // PRICE RULES (surgical precision):
@@ -901,7 +924,6 @@ function renderAgent(pane,data,name,initials,color,rating,reviews,count,year,url
 
 const FERNANDO=[
   {id:"2749592918731362",price:950,beds:1,title:"1 Bed - St-Jean-sur-Richelieu J3A",loc:"914 Rue Desaulniers, St-Jean-sur-Richelieu J3A 1B1",zone:"sjsr_1",pets:true,desc_ok:true,photos:10,link:"https://www.facebook.com/marketplace/item/2749592918731362/"},
-  {id:"1302856535317477",price:1450,beds:2,title:"2 Beds - Pierre-de-Coubertin H1V",loc:"4304 Av. Pierre-de-Coubertin, Montréal H1V",zone:"hochelaga_2",pets:false,desc_ok:true,photos:7,link:"https://www.facebook.com/marketplace/item/1302856535317477/"},
   {id:"1941437793127850",price:1190,beds:2,title:"2 Beds - Granby J2G",loc:"53 Boul. Fortin, Granby J2G 3Z8",zone:"granby_2",pets:true,desc_ok:true,photos:9,link:"https://www.facebook.com/marketplace/item/1941437793127850/"},
   {id:"4048302245461950",price:1020,beds:0,title:"Studio - Sherbrooke Est H1V",loc:"3600 Rue Sherbrooke E, Montréal H1V",zone:"hochelaga_0",pets:false,desc_ok:true,photos:12,link:"https://www.facebook.com/marketplace/item/4048302245461950/"},
   {id:"1595209748487971",price:1150,beds:1,title:"1 Bed - Hochelaga H1V",loc:"4761 Rue Hochelaga, Montréal H1V 1E5",zone:"hochelaga_1",pets:true,desc_ok:true,photos:9,link:"https://www.facebook.com/marketplace/item/1595209748487971/"},
@@ -911,35 +933,33 @@ const JENY=[
   {id:"1675318406743053",price:1550,beds:2,title:"2 Beds - Bois-de-Boulogne H4N",loc:"10355 Av. de Bois-de-Boulogne, Montréal H4N 1L5",zone:"boisdboulogne_2",pets:false,desc_ok:true,photos:12,link:"https://www.facebook.com/marketplace/item/1675318406743053/"},
   {id:"1299292945605460",price:2100,beds:4,title:"4 Beds - Bois-de-Boulogne H4N",loc:"10355 Av. de Bois-de-Boulogne, Montréal H4N 1L5",zone:"boisdboulogne_2",pets:false,desc_ok:true,photos:9,link:"https://www.facebook.com/marketplace/item/1299292945605460/"},
   {id:"964024216609873",price:1200,beds:1,title:"1 Bed - Bois-de-Boulogne H4N",loc:"10355 Av. de Bois-de-Boulogne, Montréal H4N 1L5",zone:"boisdboulogne_1",pets:true,desc_ok:true,photos:10,link:"https://www.facebook.com/marketplace/item/964024216609873/"},
-  {id:"3655659977921117",price:1090,beds:1,title:"1 Bed - Crémazie O H2N",loc:"147 Boul. Crémazie O, Montréal H2N 1L5",zone:"bourassa_1",pets:false,desc_ok:true,photos:7,link:"https://www.facebook.com/marketplace/item/3655659977921117/"},
-  {id:"4245659942400925",price:1090,beds:1,title:"1 Bed - Crémazie O H2N (unit 2)",loc:"147 Boul. Crémazie O, Montréal H2N 1L5",zone:"bourassa_1",pets:false,desc_ok:true,photos:7,link:"https://www.facebook.com/marketplace/item/4245659942400925/"},
   {id:"980475264581541",price:1128,beds:1,title:"1 Bed - Joseph-Renaud Anjou H1K",loc:"6501 Boul. Joseph-Renaud, Anjou H1K 3V3",zone:"anjou_1",pets:false,desc_ok:true,photos:6,link:"https://www.facebook.com/marketplace/item/980475264581541/"},
   {id:"1511979823709890",price:1490,beds:2,title:"2 Beds - Joseph-Renaud Anjou H1K",loc:"6451 Boul. Joseph-Renaud, Anjou H1K 3R5",zone:"anjou_2",pets:false,desc_ok:true,photos:10,link:"https://www.facebook.com/marketplace/item/1511979823709890/"},
   {id:"1630951488162931",price:1690,beds:3,title:"3 Beds - Montréal",loc:"Montréal, QC",zone:"anjou_2",pets:false,desc_ok:true,photos:12,link:"https://www.facebook.com/marketplace/item/1630951488162931/"},
   {id:"1772916453873747",price:1125,beds:1,title:"1 Bed - Joseph-Renaud H1K",loc:"6351 Boul. Joseph-Renaud, Montréal H1K 3T7",zone:"anjou_1",pets:false,desc_ok:true,photos:10,link:"https://www.facebook.com/marketplace/item/1772916453873747/"},
   {id:"1636938377573604",price:1400,beds:2,title:"2 Beds - Av. Vendéens Anjou H1K",loc:"8281 Av. des Vendéens, Anjou H1K 1T4",zone:"anjou_2",pets:false,desc_ok:true,photos:6,link:"https://www.facebook.com/marketplace/item/1636938377573604/"},
-  {id:"2254021115134403",price:1125,beds:1,title:"1 Bed - Joseph-Renaud H1K (old)",loc:"6351 Boul. Joseph-Renaud, Montréal H1K",zone:"anjou_1",pets:true,desc_ok:true,photos:6,link:"https://www.facebook.com/marketplace/item/2254021115134403/"},
   {id:"1627772358407461",price:1350,beds:1,title:"1 Bed - Bois-de-Boulogne H4N",loc:"10355 Av. de Bois-de-Boulogne, Montréal H4N 1L5",zone:"boisdboulogne_1",pets:true,desc_ok:true,photos:8,link:"https://www.facebook.com/marketplace/item/1627772358407461/"}
 ];
 const KATHLEEN=[
   {id:"1283754646584083",price:1400,beds:2,title:"2 Beds - Longueuil (Renovated)",loc:"Longueuil, QC",zone:"longueuil_2",pets:true,desc_ok:true,photos:8,link:"https://www.facebook.com/marketplace/item/1283754646584083/"},
   {id:"1483681166642491",price:775,beds:0,title:"Studio - Pointe-St-Charles H3K",loc:"591 Av. Ash, Montréal H3K 2R5",zone:"pointe_0",pets:false,desc_ok:true,photos:5,link:"https://www.facebook.com/marketplace/item/1483681166642491/"},
   {id:"796969926806044",price:1050,beds:1,title:"1 Bed - Côte-St-Luc H4V",loc:"7030 Ch. de la Côte-St-Luc, Montréal H4V 1J3",zone:"csl_1",pets:true,desc_ok:true,photos:6,link:"https://www.facebook.com/marketplace/item/796969926806044/"},
-  {id:"1297695602272848",price:1650,beds:2,title:"2 Beds+Bureau - Verdun H4G",loc:"3468 Rue de Verdun, Montréal H4G 1K3",zone:"verdun_2",pets:true,desc_ok:true,photos:7,link:"https://www.facebook.com/marketplace/item/1297695602272848/"}
+  {id:"1297695602272848",price:1550,beds:2,title:"2 Beds+Bureau - Verdun H4G",loc:"3468 Rue de Verdun, Montréal H4G 1K3",zone:"verdun_2",pets:true,desc_ok:true,photos:7,link:"https://www.facebook.com/marketplace/item/1297695602272848/"},
+  {id:"3300139370147371",price:1500,beds:2,title:"2 Beds - Longueuil / Montréal",loc:"Longueuil / Montréal, QC",zone:"longueuil_2",pets:true,desc_ok:true,photos:5,link:"https://www.facebook.com/marketplace/item/3300139370147371/"},
+  {id:"1172734774837694",price:1075,beds:1,title:"1 Bed - St-Jean-sur-Richelieu",loc:"St-Jean-sur-Richelieu, QC",zone:"sjsr_1",pets:false,desc_ok:true,photos:5,link:"https://www.facebook.com/marketplace/item/1172734774837694/"}
 ];
 const ORIANA=[
-  {id:"4333936743526446",price:999,beds:0,title:"Studio - Rue St-Andre H2L",loc:"2002 Rue St-Andre, Montreal H2L 3V1",zone:"plateau_0",pets:true,desc_ok:true,photos:9,link:"https://www.facebook.com/marketplace/item/4333936743526446/"},
+  {id:"4333936743526446",price:975,beds:0,title:"Studio - Rue St-Andre H2L",loc:"2002 Rue St-Andre, Montreal H2L 3V1",zone:"plateau_0",pets:true,desc_ok:true,photos:9,link:"https://www.facebook.com/marketplace/item/4333936743526446/"},
   {id:"26719565651069249",price:1100,beds:1,title:"1 Bed - Rue St-Andre H2L",loc:"2002 Rue St-Andre, Montreal H2L 3V1",zone:"plateau_1",pets:true,desc_ok:true,photos:9,link:"https://www.facebook.com/marketplace/item/26719565651069249/"},
   {id:"2133909704121299",price:1195,beds:1,title:"1 Bed - Av. Bloomfield H3N",loc:"8191 Av. Bloomfield, Montreal H3N 2H8",zone:"rosemont_1",pets:true,desc_ok:true,photos:7,link:"https://www.facebook.com/marketplace/item/2133909704121299/"},
-  {id:"1622021245743292",price:1400,beds:2,title:"2 Beds - Rue Cartier H2E",loc:"7235 Rue Cartier, Montreal H2E 2J3",zone:"rosemont_2",pets:true,desc_ok:true,photos:10,link:"https://www.facebook.com/marketplace/item/1622021245743292/"},
+  {id:"1622021245743292",price:1350,beds:2,title:"2 Beds - Rue Cartier H2E",loc:"7235 Rue Cartier, Montreal H2E 2J3",zone:"rosemont_2",pets:true,desc_ok:true,photos:10,link:"https://www.facebook.com/marketplace/item/1622021245743292/"},
   {id:"2079978426731789",price:950,beds:0,title:"Studio - Rue Masson H1X",loc:"3915 Rue Masson, Montreal H1X 1T2",zone:"rosemont_0",pets:true,desc_ok:true,photos:7,link:"https://www.facebook.com/marketplace/item/2079978426731789/"},
-  {id:"1302683928048846",price:1275,beds:2,title:"2 Beds - Rue St-Hubert H2R",loc:"7879 Rue St-Hubert, Montreal H2R 2P1",zone:"rosemont_2",pets:true,desc_ok:true,photos:12,link:"https://www.facebook.com/marketplace/item/1302683928048846/"},
-  {id:"1673049153835500",price:925,beds:0,title:"Studio - Av. Wilderton H3S",loc:"6510 Av. Wilderton, Montreal H3S 2L6",zone:"cdn_0",pets:true,desc_ok:true,photos:8,link:"https://www.facebook.com/marketplace/item/1673049153835500/"},
-  {id:"1556778945871466",price:1075,beds:0,title:"Studio - Rue St-Denis H2J",loc:"5576 Rue St-Denis, Montreal H2J 2M5",zone:"plateau_0",pets:true,desc_ok:true,photos:8,link:"https://www.facebook.com/marketplace/item/1556778945871466/"},
-  {id:"2089793621954990",price:1350,beds:1,title:"1 Bed - Rue Hutchison H2V NEW",loc:"4688 Rue Hutchison, Montreal H2V 3Z9",zone:"outremont_1",pets:true,desc_ok:true,photos:8,link:"https://www.facebook.com/marketplace/item/2089793621954990/"},
-  {id:"1006219368670126",price:1475,beds:2,title:"2 Beds - Rue Hutchison H2V NEW",loc:"4688 Rue Hutchison, Montreal H2V 3Z9",zone:"outremont_2",pets:true,desc_ok:true,photos:8,link:"https://www.facebook.com/marketplace/item/1006219368670126/"},
-  {id:"1247370840626384",price:1100,beds:1,title:"1 Bed - Av. Wilderton H3S NEW",loc:"6510 Avenue Wilderton, Montreal H3S 2L6",zone:"cdn_1",pets:true,desc_ok:true,photos:7,link:"https://www.facebook.com/marketplace/item/1247370840626384/"},
-  {id:"1926663458035953",price:1450,beds:2,title:"2 Beds - Av. Wilderton H3S NEW",loc:"6510 Avenue Wilderton, Montreal H3S 2L6",zone:"cdn_2",pets:true,desc_ok:true,photos:8,link:"https://www.facebook.com/marketplace/item/1926663458035953/"}
+  {id:"2089793621954990",price:1195,beds:1,title:"1 Bed - Rue Hutchison H2V",loc:"4688 Rue Hutchison, Montreal H2V 3Z9",zone:"outremont_1",pets:true,desc_ok:true,photos:8,link:"https://www.facebook.com/marketplace/item/2089793621954990/"},
+  {id:"1006219368670126",price:1425,beds:2,title:"2 Beds - Rue Hutchison H2V",loc:"4688 Rue Hutchison, Montreal H2V 3Z9",zone:"outremont_2",pets:true,desc_ok:true,photos:8,link:"https://www.facebook.com/marketplace/item/1006219368670126/"},
+  {id:"1247370840626384",price:1100,beds:1,title:"1 Bed - Av. Wilderton H3S",loc:"6510 Avenue Wilderton, Montreal H3S 2L6",zone:"cdn_1",pets:true,desc_ok:true,photos:7,link:"https://www.facebook.com/marketplace/item/1247370840626384/"},
+  {id:"1926663458035953",price:1450,beds:2,title:"2 Beds - Av. Wilderton H3S",loc:"6510 Avenue Wilderton, Montreal H3S 2L6",zone:"cdn_2",pets:true,desc_ok:true,photos:8,link:"https://www.facebook.com/marketplace/item/1926663458035953/"},
+  {id:"1489659012646746",price:1375,beds:2,title:"2 Beds - Montréal",loc:"Montréal, QC",zone:"rosemont_2",pets:true,desc_ok:true,photos:4,link:"https://www.facebook.com/marketplace/item/1489659012646746/"},
+  {id:"1614264882995447",price:1350,beds:2,title:"2 Beds - Montréal",loc:"Montréal, QC",zone:"rosemont_2",pets:true,desc_ok:true,photos:4,link:"https://www.facebook.com/marketplace/item/1614264882995447/"}
 ];
 
 // City mapping
@@ -960,7 +980,7 @@ const ABHI = [
 ];
 const LEASEWITH = [
   {id:"1477304230836157",title:"2 Bed - 399 32nd St W, Prince Albert SK",price:1455,beds:2,photos:5,desc_ok:true,pets:true, zone:"pa_2",loc:"399 32nd St W, Prince Albert SK S6V 5Z3",link:"https://www.facebook.com/marketplace/item/1477304230836157/",desc:"Wingspan Properties. Dog/cat friendly. Elevator. Secured entry. Balcony. Walk-in closet."},
-  {id:"4286139491646230",title:"1 Bed - 1132 Central Ave, Prince Albert SK",price:1190,beds:1,photos:3,desc_ok:true,pets:false,zone:"pa_1",loc:"1132 Central Ave, Prince Albert SK S6V 4V6",link:"https://www.facebook.com/marketplace/item/4286139491646230/",desc:"Wingspan Properties. 1132 Central Ave office. Contact 306-314-0214."},
+  {id:"1842045623843093",title:"1 Bed - 33 River St E, Prince Albert SK",price:1190,beds:1,photos:4,desc_ok:true,pets:false,zone:"pa_1",loc:"33 River St E, Prince Albert SK",link:"https://www.facebook.com/marketplace/item/1842045623843093/",desc:"Wingspan Properties. 1 bed apartment. 33 River St E, Prince Albert SK."},
   {id:"3625077684337629",title:"2 Bed - Prince Albert SK",price:1350,beds:2,photos:3,desc_ok:true,pets:false,zone:"pa_2",loc:"Prince Albert, SK",link:"https://www.facebook.com/marketplace/item/3625077684337629/",desc:"Wingspan Properties. Apartment for rent. Contact for details."},
   {id:"1663916481689868",title:"1 Bed - 2300 2nd Ave W, Prince Albert SK",price:1365,beds:1,photos:4,desc_ok:true,pets:false,zone:"pa_1",loc:"2300 2nd Ave W, Prince Albert SK S6V 5C7",link:"https://www.facebook.com/marketplace/item/1663916481689868/",desc:"Wingspan Properties. 2300 2nd Ave W. 1 bed."},
   {id:"915190018100115", title:"1 Bed - Prince Albert SK",price:1190,beds:1,photos:3,desc_ok:true,pets:false,zone:"pa_1",loc:"Prince Albert, SK",link:"https://www.facebook.com/marketplace/item/915190018100115/",desc:"Wingspan Properties. 1132 Central Ave, Prince Albert SK S6V 4V6."},
@@ -968,10 +988,26 @@ const LEASEWITH = [
   {id:"910197502004234", title:"3 Bed - 1401 28th St E, Prince Albert SK",price:1250,beds:3,photos:4,desc_ok:true,pets:false,zone:"pa_3",loc:"1401 28th St E, Prince Albert SK S6V 6Z8",link:"https://www.facebook.com/marketplace/item/910197502004234/",desc:"3 bed apartment. 1401 28th St E. Wingspan Properties."},
 ];
 
+// ─── EDMONTON AGENTS ───
+const SAFIYA = [
+  {id:"1854146668875521",title:"2 Bed - 10945 84 St NW, Edmonton AB",price:1250,beds:2,photos:4,desc_ok:true,pets:false,zone:"yeg_2",loc:"10945 84 St NW, Edmonton AB T6A 3P8",link:"https://www.facebook.com/marketplace/item/1854146668875521/"},
+  {id:"1707985713723016",title:"2 Bed - 10707 106 St NW, Edmonton AB",price:1375,beds:2,photos:4,desc_ok:true,pets:false,zone:"yeg_2",loc:"10707 106 St NW, Edmonton AB T5H 2X8",link:"https://www.facebook.com/marketplace/item/1707985713723016/"},
+  {id:"1020147234035102",title:"1 Bed - 10707 106 St NW, Edmonton AB",price:1195,beds:1,photos:4,desc_ok:true,pets:false,zone:"yeg_1",loc:"10707 106 St NW, Edmonton AB T5H 2X8",link:"https://www.facebook.com/marketplace/item/1020147234035102/"},
+  {id:"1026993743113953",title:"Studio - Edmonton AB",price:1095,beds:0,photos:4,desc_ok:true,pets:false,zone:"yeg_0",loc:"Edmonton, AB",link:"https://www.facebook.com/marketplace/item/1026993743113953/"},
+  {id:"997684436313848",title:"Studio - 11835 89 St NW, Edmonton AB",price:950,beds:0,photos:4,desc_ok:true,pets:false,zone:"yeg_0",loc:"11835 89 St NW, Edmonton AB T5B 3R8",link:"https://www.facebook.com/marketplace/item/997684436313848/"},
+  {id:"987355700366540",title:"2 Bed - 11835 89 St NW, Edmonton AB",price:1250,beds:2,photos:4,desc_ok:true,pets:false,zone:"yeg_2",loc:"11835 89 St NW, Edmonton AB T5B 3R8",link:"https://www.facebook.com/marketplace/item/987355700366540/"},
+  {id:"1495356855374967",title:"1 Bed - 11045 83 St NW, Edmonton AB",price:1150,beds:1,photos:4,desc_ok:true,pets:false,zone:"yeg_1",loc:"11045 83 St NW, Edmonton AB T5H 1S7",link:"https://www.facebook.com/marketplace/item/1495356855374967/"},
+  {id:"1794521644894108",title:"2 Bed - 11835 89 St NW (B), Edmonton AB",price:1295,beds:2,photos:4,desc_ok:true,pets:false,zone:"yeg_2",loc:"11835 89 St NW, Edmonton AB T5B 3R8",link:"https://www.facebook.com/marketplace/item/1794521644894108/"},
+  {id:"26607311672302353",title:"2 Bed - 11835 89 St NW (C), Edmonton AB",price:1250,beds:2,photos:4,desc_ok:true,pets:false,zone:"yeg_2",loc:"11835 89 St NW, Edmonton AB T5B 3R8",link:"https://www.facebook.com/marketplace/item/26607311672302353/"},
+  {id:"2884733771888348",title:"1 Bed - Edmonton AB",price:1250,beds:1,photos:4,desc_ok:true,pets:false,zone:"yeg_1",loc:"Edmonton, AB",link:"https://www.facebook.com/marketplace/item/2884733771888348/"},
+  {id:"2424573657971273",title:"1 Bed - Edmonton AB (South)",price:1125,beds:1,photos:4,desc_ok:true,pets:false,zone:"yeg_1",loc:"Edmonton, AB",link:"https://www.facebook.com/marketplace/item/2424573657971273/"},
+  {id:"1582216172984187",title:"2 Bed - 10945 84 St NW (B), Edmonton AB",price:1350,beds:2,photos:4,desc_ok:true,pets:false,zone:"yeg_2",loc:"10945 84 St NW, Edmonton AB T6A 3P8",link:"https://www.facebook.com/marketplace/item/1582216172984187/"},
+];
+
 const CITY_MAP = {
   montreal: ["fernando","jeny","kathleen","oriana"],
   "prince-albert": ["vinit","avi","abhi","leasewith"],
-  edmonton: []
+  edmonton: ["safiya"]
 };
 let ACTIVE_CITY = "all"; // "all" | "montreal" | "prince-albert" | "edmonton"
 
@@ -992,11 +1028,11 @@ function getCityAgents(city) {
   return result;
 }
 
-const ALL_DATA=[...FERNANDO.map(i=>({...i,agent:"Fernando",agentColor:"#6366f1",agent_key:"fernando"})),...JENY.map(i=>({...i,agent:"Jeny",agentColor:"#10b981",agent_key:"jeny"})),...KATHLEEN.map(i=>({...i,agent:"Kathleen",agentColor:"#f59e0b",agent_key:"kathleen"})),...ORIANA.map(i=>({...i,agent:"Oriana",agentColor:"#ec4899",agent_key:"oriana"})),...VINIT.map(i=>({...i,agent:"Vinit",agentColor:"#8b5cf6",agent_key:"vinit"})),...AVI.map(i=>({...i,agent:"Avi",agentColor:"#06b6d4",agent_key:"avi"})),...ABHI.map(i=>({...i,agent:"Abhi",agentColor:"#f97316",agent_key:"abhi"})),...LEASEWITH.map(i=>({...i,agent:"LeaseWith",agentColor:"#84cc16",agent_key:"leasewith"}))];
+const ALL_DATA=[...FERNANDO.map(i=>({...i,agent:"Fernando",agentColor:"#6366f1",agent_key:"fernando"})),...JENY.map(i=>({...i,agent:"Jeny",agentColor:"#10b981",agent_key:"jeny"})),...KATHLEEN.map(i=>({...i,agent:"Kathleen",agentColor:"#f59e0b",agent_key:"kathleen"})),...ORIANA.map(i=>({...i,agent:"Oriana",agentColor:"#ec4899",agent_key:"oriana"})),...VINIT.map(i=>({...i,agent:"Vinit",agentColor:"#8b5cf6",agent_key:"vinit"})),...AVI.map(i=>({...i,agent:"Avi",agentColor:"#06b6d4",agent_key:"avi"})),...ABHI.map(i=>({...i,agent:"Abhi",agentColor:"#f97316",agent_key:"abhi"})),...LEASEWITH.map(i=>({...i,agent:"LeaseWith",agentColor:"#84cc16",agent_key:"leasewith"})),...SAFIYA.map(i=>({...i,agent:"Safiya",agentColor:"#0ea5e9",agent_key:"safiya"}))];
 
 function renderKPIs(){
   const cityData = getCityData(ACTIVE_CITY);
-  if(cityData.length===0){document.getElementById("kpi-row").innerHTML='';return;}
+  if(cityData.length===0){document.getElementById("kpi-row").innerHTML='<div style="text-align:center;padding:20px;color:#6b7280;grid-column:1/-1">No data for this city yet.</div>';return;}
   const scores=cityData.map(i=>calcScore(i));const avgSc=Math.round(scores.reduce((a,b)=>a+b,0)/scores.length);const needAtt=scores.filter(s=>s<55).length;const avgPrice=Math.round(cityData.reduce((s,i)=>s+i.price,0)/cityData.length);
   const agents=[...new Set(cityData.map(i=>i.agent_key))].length;
   document.getElementById("kpi-row").innerHTML=`<div class="kpi" style="--ac:#6366f1"><div class="kpi-icon">📦</div><div class="kpi-val">${cityData.length}</div><div class="kpi-label">Active Listings</div><div class="kpi-sub">${agents} agent${agents!==1?"s":""} · ${ACTIVE_CITY==="all"?"All cities":ACTIVE_CITY.charAt(0).toUpperCase()+ACTIVE_CITY.slice(1)}</div></div><div class="kpi" style="--ac:#10b981"><div class="kpi-icon">💰</div><div class="kpi-val">CA$${avgPrice.toLocaleString()}</div><div class="kpi-label">Avg Price/Month</div><div class="kpi-sub">Apts & studios only</div></div><div class="kpi" style="--ac:#f59e0b"><div class="kpi-icon">⭐</div><div class="kpi-val">4.1 ★</div><div class="kpi-label">Avg Agent Rating</div><div class="kpi-sub">Fernando 4.7 · Oriana 4.1</div></div><div class="kpi" style="--ac:#8b5cf6"><div class="kpi-icon">🎯</div><div class="kpi-val">${avgSc}/100</div><div class="kpi-label">Portfolio Score</div><div class="kpi-sub">Price · Photos · Freshness</div></div><div class="kpi kpi-clickable" style="--ac:#ef4444" onclick="openAtt()" title="Click to see all listings needing attention"><div class="kpi-icon">⚠️</div><div class="kpi-val">${needAtt}</div><div class="kpi-label">Need Attention</div><div class="kpi-sub" style="color:#fca5a5;font-weight:600">👆 Click to view</div></div>`;
@@ -1004,7 +1040,7 @@ function renderKPIs(){
 
 function renderRanking(){
   const cityData=getCityData(ACTIVE_CITY);
-  if(cityData.length===0){document.getElementById("pane-ranking").innerHTML='';return;}
+  if(cityData.length===0){document.getElementById("pane-ranking").innerHTML='<div style="text-align:center;padding:40px;color:#6b7280">No data for this city yet.</div>';return;}
   const scored=cityData.map(i=>({...i,sc:calcScore(i),d:getDiff(i.price,i.beds,i.zone||null)})).sort((a,b)=>b.sc-a.sc);
   const medals=["🥇","🥈","🥉","4️⃣","5️⃣","6️⃣","7️⃣","8️⃣","9️⃣","🔟"];
   function card(item,rank,isTop){
@@ -1042,8 +1078,9 @@ function renderAll(){
   renderAgent("leasewith",LEASEWITH,"LeaseWith Fenil","LF","#84cc16","4.3","45","7","2024","https://www.facebook.com/marketplace/profile/61579577724365/","leasewith");
   renderAgent("fernando",FERNANDO,"Fernando Muñoz","FM","#6366f1","4.7","58","5","2010","https://www.facebook.com/marketplace/profile/1764619868/","fernando");
   renderAgent("jeny",JENY,"Jeny Ocaranza","JO","#10b981","4.0","18","9","2010","https://www.facebook.com/marketplace/profile/100001182962462/","jeny");
-  renderAgent("kathleen",KATHLEEN,"Kathleen Harvey","KH","#f59e0b","3.7","17","5","2007","https://www.facebook.com/marketplace/profile/658666244/","kathleen");
-  renderAgent("oriana",ORIANA,"Oriana Samboni","OS","#ec4899","4.1","77","12","2021","https://www.facebook.com/marketplace/profile/100065415266053/","oriana");
+  renderAgent("kathleen",KATHLEEN,"Kathleen Harvey","KH","#f59e0b","3.7","17","6","2007","https://www.facebook.com/marketplace/profile/658666244/","kathleen");
+  renderAgent("oriana",ORIANA,"Oriana Samboni","OS","#ec4899","4.1","77","11","2021","https://www.facebook.com/marketplace/profile/100065415266053/","oriana");
+  renderAgent("safiya",SAFIYA,"Safiya Ali","SA","#0ea5e9","4.2","0","12","2023","https://www.facebook.com/marketplace/profile/100078883825365/","safiya");
   renderRanking();
   if(chartsBuilt)renderCharts();
 }
