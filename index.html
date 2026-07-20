@@ -1852,88 +1852,88 @@ function processQuery(q) {
 let miZone = null, miType = "2-bed";
 function renderMarketIntel() {
   const city = ACTIVE_CITY === "all" ? "montreal" : (ACTIVE_CITY || "montreal");
-  const cityLabels = {"montreal":"Montréal","prince-albert":"Prince Albert","edmonton":"Edmonton","winnipeg":"Winnipeg","saskatoon-regina":"Saskatoon"};
-  const cityLabel = cityLabels[city] || city;
+  const cityData = MARKET_INTEL[city];
   const pane = document.getElementById("pane-marketintel");
   if (!pane) return;
-  const mi = MARKET_INTEL[city];
-  if (!mi || !mi.zones) {
-    pane.innerHTML = `<div style="text-align:center;padding:60px;color:#6b7280"><div style="font-size:2rem;margin-bottom:12px">📊</div><div>No market intelligence data for <strong>${cityLabel}</strong> yet.</div></div>`;
+  if (!cityData || Object.keys(cityData.zones).length === 0) {
+    pane.innerHTML = '<div style="text-align:center;padding:60px;color:#6b7280">No market intelligence data for this city yet.</div>';
     return;
   }
-  const zones = Object.keys(mi.zones);
-  if (!miZone || !zones.includes(miZone)) miZone = zones[0];
-  const z = mi.zones[miZone];
-  const types = ["studio","1-bed","2-bed","3-bed"];
-  const labels = {"studio":"Studio","1-bed":"1 Bedroom","2-bed":"2 Bedrooms","3-bed":"3 Bedrooms"};
-  const platforms = ["fb","rental","kijiji","lelocataire","realtor"];
-  const platLabels = {"fb":"FB Marketplace","rental":"Rentals.ca","kijiji":"Kijiji","lelocataire":"LeLocataire","realtor":"Realtor.ca"};
-  const platColors = {"fb":"#1877F2","rental":"#e85d04","kijiji":"#1a7f37","lelocataire":"#7c3aed","realtor":"#dc2626"};
+  const zones = Object.keys(cityData.zones);
+  if (!miZone) miZone = zones[0];
 
   // Zone selector
-  const zoneBtns = zones.map(zn =>
-    `<button class="mi-zone-btn ${zn===miZone?'active':''}" onclick="miZone='${zn}';renderMarketIntel()">${zn}</button>`
-  ).join('');
+  const zoneBtns = zones.map(z => `<button class="mi-zone-btn${z===miZone?" active":""}" onclick="miSelectZone('${z.replace(/'/g,"\'")}')">📍 ${z}</button>`).join("");
 
-  // Build comparison rows per unit type
-  const rows = types.map(type => {
-    if (!z[type]) return '';
-    const d = z[type];
-    // Find FB avg for context
-    const fbPrice = d.fb;
-    if (!fbPrice) return '';
-    // Compute spread
-    const prices = platforms.map(p => d[p]).filter(Boolean);
-    const low = Math.min(...prices);
-    const high = Math.max(...prices);
-    const fbVsRental = d.rental ? Math.round(((d.fb/d.rental)-1)*100) : 0;
+  // Type tabs
+  const typeTabs = MI_BED_TYPES.map(t => `<button class="mi-type-btn${t===miType?" active":""}" onclick="miSelectType('${t}')">${MI_BED_LABELS[t]}</button>`).join("");
 
-    const platformCols = platforms.map(p => {
-      const val = d[p];
-      const isLowest = val === low;
-      return `<td style="text-align:center;padding:10px 8px;${isLowest?'color:#10b981;font-weight:700':''}">
-        ${val ? `<span style="font-family:'Syne',sans-serif;font-size:15px">CA$${val.toLocaleString()}</span><br><span style="font-size:10px;color:#6b7280">/mo</span>` : '<span style="color:#4b5563">—</span>'}
-      </td>`;
-    }).join('');
+  // Platform cards for selected zone+type
+  const zoneData = cityData.zones[miZone];
+  const typeData = zoneData ? zoneData[miType] : null;
+  let cards = "", median = 0, minP = 9999, maxP = 0;
+  if (typeData) {
+    const prices = Object.values(typeData);
+    median = Math.round(prices.reduce((a,b)=>a+b,0)/prices.length);
+    minP = Math.min(...prices); maxP = Math.max(...prices);
+    const maxVal = maxP;
+    cards = MI_PLATFORMS.map(p => {
+      const price = typeData[p.key] || 0;
+      const pct = Math.round((price/maxVal)*100);
+      const diff = Math.round(((price-median)/median)*100);
+      const diffStr = diff>0?`+${diff}%`:diff<0?`${diff}%`:"=avg";
+      const diffCol = diff>5?"#fca5a5":diff<-5?"#6ee7b7":"#9aa3b5";
+      return `<a class="mi-platform-card" href="${p.url}" target="_blank">
+        <div class="mi-plat-hdr"><span class="mi-plat-icon">${p.icon}</span><span class="mi-plat-name">${p.name}</span><span style="margin-left:auto;font-size:10px;color:${diffCol};font-weight:700">${diffStr}</span></div>
+        <div class="mi-plat-price">CA$${price.toLocaleString()}<span style="font-size:11px;font-weight:400;color:#6b7280">/mo</span></div>
+        <div class="mi-plat-bar"><div class="mi-plat-fill" style="width:${pct}%;background:${p.color}"></div></div>
+        <div class="mi-plat-note">vs. cross-platform median CA$${median.toLocaleString()}</div>
+      </a>`;
+    }).join("");
+  }
 
-    const badge = fbVsRental < -25
-      ? `<span style="background:rgba(16,185,129,0.15);color:#10b981;font-size:11px;padding:2px 7px;border-radius:5px;margin-left:8px">${Math.abs(fbVsRental)}% below market</span>`
-      : fbVsRental > 5
-      ? `<span style="background:rgba(239,68,68,0.15);color:#ef4444;font-size:11px;padding:2px 7px;border-radius:5px;margin-left:8px">${fbVsRental}% above market</span>`
-      : `<span style="background:rgba(245,158,11,0.15);color:#f59e0b;font-size:11px;padding:2px 7px;border-radius:5px;margin-left:8px">At market avg</span>`;
-
-    return `<tr style="border-bottom:1px solid rgba(255,255,255,0.06)">
-      <td style="padding:12px 14px;font-weight:600;font-size:13px;white-space:nowrap">${labels[type]}${badge}</td>
-      ${platformCols}
-    </tr>`;
-  }).join('');
-
-  const headerCols = platforms.map(p =>
-    `<th style="text-align:center;padding:8px;font-size:11px;font-weight:600;color:${platColors[p]};white-space:nowrap">${platLabels[p]}</th>`
-  ).join('');
+  // Price calculator
+  const calcZoneOptions = zones.map(z => `<option value="${z}"${z===miZone?" selected":""}>${z}</option>`).join("");
+  const calcTypeOptions = MI_BED_TYPES.map(t => `<option value="${t}"${t===miType?" selected":""}>${MI_BED_LABELS[t]}</option>`).join("");
 
   pane.innerHTML = `
-    <div style="margin-bottom:20px">
-      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:18px;margin-bottom:6px">📊 Market Intelligence — ${cityLabel}</div>
-      <div style="font-size:12px;color:#6b7280">Updated July 2026 · Sources: Rentals.ca, Zumper, Kijiji, LeLocataire, Realtor.ca, FB Marketplace</div>
+    <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#e2e8f0;margin-bottom:16px">
+      🌐 Market Intelligence — ${city.charAt(0).toUpperCase()+city.slice(1)}
+      <span style="font-size:10px;font-weight:400;color:#6b7280;margin-left:8px">All major rental platforms · 6 bedroom types · ${zones.length} zones</span>
     </div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px">
-      ${zoneBtns}
+
+    <div class="mi-zone-selector">${zoneBtns}</div>
+    <div class="mi-type-tabs">${typeTabs}</div>
+
+    ${typeData ? `<div class="mi-median-box">
+      <div><div class="mi-med-label">Cross-platform median</div><div class="mi-med-main">CA$${median.toLocaleString()}/mo</div><div class="mi-med-range">Range: CA$${minP.toLocaleString()} – CA$${maxP.toLocaleString()}</div></div>
+      <div style="width:1px;height:48px;background:rgba(255,255,255,0.1)"></div>
+      <div><div class="mi-med-label">Zone</div><div class="mi-med-zone">${miZone}</div><div style="font-size:10px;color:#6b7280">${MI_BED_LABELS[miType]}</div></div>
+      <div style="width:1px;height:48px;background:rgba(255,255,255,0.1)"></div>
+      <div><div class="mi-med-label">Sweet price range</div><div style="font-size:14px;font-weight:700;color:#10b981">CA$${Math.round(minP*1.02).toLocaleString()} – CA$${Math.round(median*0.98).toLocaleString()}</div><div style="font-size:10px;color:#6b7280">0% to -5% below median</div></div>
+    </div>` : ""}
+
+    <div class="mi-grid">${cards}</div>
+
+    <!-- PRICE CALCULATOR -->
+    <div class="calc-box">
+      <div class="calc-title">🧮 Price Calculator — What should I charge?</div>
+      <div class="calc-row">
+        <div class="calc-field"><label>Zone / Neighborhood</label><select id="calc-zone" onchange="calcUpdate()">${calcZoneOptions}</select></div>
+        <div class="calc-field"><label>Property Type</label><select id="calc-type" onchange="calcUpdate()">${calcTypeOptions}</select></div>
+        <div class="calc-field"><label>Strategy</label><select id="calc-strategy" onchange="calcUpdate()">
+          <option value="sweet">✅ Sweet spot (rent fast)</option>
+          <option value="median">📊 Median market</option>
+          <option value="premium">💎 Premium (+10%)</option>
+          <option value="aggressive">🔥 Aggressive (-10%)</option>
+        </select></div>
+      </div>
+      <div style="margin-bottom:12px">
+        <button class="calc-btn" onclick="calcUpdate()">📊 Calculate Recommended Price</button>
+      </div>
+      <div class="calc-result" id="calc-result"></div>
     </div>
-    <div style="background:#13131f;border:1px solid rgba(255,255,255,0.1);border-radius:14px;overflow:hidden">
-      <table style="width:100%;border-collapse:collapse">
-        <thead>
-          <tr style="border-bottom:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.03)">
-            <th style="text-align:left;padding:10px 14px;font-size:11px;font-weight:600;color:#9aa3b5">Unit Type</th>
-            ${headerCols}
-          </tr>
-        </thead>
-        <tbody>${rows}</tbody>
-      </table>
-    </div>
-    <div style="margin-top:14px;padding:12px 16px;background:rgba(77,159,255,0.06);border:1px solid rgba(77,159,255,0.15);border-radius:10px;font-size:11px;color:#6b7280">
-      <strong style="color:#4D9FFF">How to read this:</strong> Green = FB Marketplace price is significantly below market (competitive). Yellow = at market average. Red = above market. Compare your listings against the market to identify pricing opportunities.
-    </div>`;
+  `;
 }
 
 function miSelectZone(z) { miZone = z; renderMarketIntel(); }
