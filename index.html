@@ -469,6 +469,69 @@ body.light .summary-label{color:#6b7280}
 
 .pane.active > * + * {margin-top:4px}
 .listing-list{padding-bottom:16px}
+
+/* ── Global content constraint — all sections respect the same margins ── */
+.tabs-row, .pane, .platforms-bar, .all-leyad-analytics, .score-section,
+div[id^="tabs-"], div[id^="pane-"],
+#all-leyad-analytics {
+  max-width: 1240px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 48px;
+  padding-right: 48px;
+  box-sizing: border-box;
+}
+
+/* Pane-specific overrides */
+.pane.active {
+  display: block;
+  animation: fadeIn .2s ease;
+  padding-top: 0;
+  padding-bottom: 32px;
+}
+
+/* Platform bar */
+.platforms-bar {
+  padding-left: 48px !important;
+  padding-right: 48px !important;
+  max-width: 1240px !important;
+  margin: 0 auto !important;
+}
+
+/* MKT box outside wrap */
+.mkt-box {
+  max-width: 1240px;
+  margin: 0 auto 20px;
+  padding: 0 48px;
+}
+
+/* Tabs container divs */
+div[id^="tabs-"] {
+  padding-top: 20px;
+  padding-bottom: 8px;
+}
+
+/* Responsive for constrained elements */
+@media(max-width:1280px){
+  .pane, div[id^="pane-"], div[id^="tabs-"], .platforms-bar, .mkt-box {
+    padding-left: 36px !important; padding-right: 36px !important;
+  }
+}
+@media(max-width:1024px){
+  .pane, div[id^="pane-"], div[id^="tabs-"], .platforms-bar, .mkt-box {
+    padding-left: 28px !important; padding-right: 28px !important;
+  }
+}
+@media(max-width:768px){
+  .pane, div[id^="pane-"], div[id^="tabs-"], .platforms-bar, .mkt-box {
+    padding-left: 18px !important; padding-right: 18px !important;
+  }
+}
+@media(max-width:480px){
+  .pane, div[id^="pane-"], div[id^="tabs-"], .platforms-bar, .mkt-box {
+    padding-left: 14px !important; padding-right: 14px !important;
+  }
+}
 </style>
 </head>
 <body>
